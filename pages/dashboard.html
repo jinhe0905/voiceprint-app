@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartVoice Pro - 仪表盘</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- 侧边导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">&#127897;</span>
+                    <h1>SmartVoice</h1>
+                </div>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <span>张</span>
+                </div>
+                <div class="user-details">
+                    <h3>张先生</h3>
+                    <p>高级会员</p>
+                </div>
+            </div>
+            
+            <nav class="side-nav">
+                <ul>
+                    <li class="active">
+                        <a href="dashboard.html">
+                            <span class="nav-icon">&#128202;</span>
+                            <span>仪表盘</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="verify.html">
+                            <span class="nav-icon">&#128272;</span>
+                            <span>声纹验证</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <span class="nav-icon">&#128100;</span>
+                            <span>个人资料</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="vehicles.html">
+                            <span class="nav-icon">&#128664;</span>
+                            <span>我的车辆</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <span class="nav-icon">&#9881;</span>
+                            <span>设置</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <span class="nav-icon">&#10067;</span>
+                            <span>帮助中心</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="logout-btn">
+                    <span class="nav-icon">&#128682;</span>
+                    <span>退出登录</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-search">
+                    <span class="search-icon">&#128269;</span>
+                    <input type="text" placeholder="搜索...">
+                </div>
+                
+                <div class="header-actions">
+                    <button class="action-btn notifications">
+                        <span class="action-icon">&#128276;</span>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="action-btn messages">
+                        <span class="action-icon">&#9993;</span>
+                        <span class="badge">5</span>
+                    </button>
+                </div>
+            </header>
+            
+            <div class="dashboard-content">
+                <div class="welcome-banner">
+                    <div class="welcome-text">
+                        <h2>欢迎回来，张先生</h2>
+                        <p>您的声纹安全状态良好，上次登录时间: 今天 08:37</p>
+                    </div>
+                    <div class="welcome-actions">
+                        <button class="banner-btn">管理声纹</button>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">&#128663;</div>
+                        <div class="stat-info">
+                            <h3>3</h3>
+                            <p>已绑定车辆</p>
+                        </div>
+                        <div class="stat-badge success">全部在线</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">&#128272;</div>
+                        <div class="stat-info">
+                            <h3>26</h3>
+                            <p>本月验证次数</p>
+                        </div>
+                        <div class="stat-badge warning">92%成功率</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">&#128483;</div>
+                        <div class="stat-info">
+                            <h3>8</h3>
+                            <p>自定义语音指令</p>
+                        </div>
+                        <div class="stat-badge info">2个新增</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">&#128681;</div>
+                        <div class="stat-info">
+                            <h3>2</h3>
+                            <p>安全警报</p>
+                        </div>
+                        <div class="stat-badge danger">需处理</div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-sections">
+                    <div class="section-row">
+                        <div class="dashboard-section vehicles-section">
+                            <div class="section-header">
+                                <h3>我的车辆</h3>
+                                <a href="vehicles.html" class="view-all">查看全部</a>
+                            </div>
+                            
+                            <div class="vehicles-list">
+                                <div class="vehicle-card active">
+                                    <div class="vehicle-icon">&#128664;</div>
+                                    <div class="vehicle-details">
+                                        <h4>宝马 X5</h4>
+                                        <p>粤A 12345</p>
+                                    </div>
+                                    <div class="vehicle-status locked">
+                                        <span class="status-icon">&#128274;</span>
+                                        <span>已锁定</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="vehicle-card">
+                                    <div class="vehicle-icon">&#128663;</div>
+                                    <div class="vehicle-details">
+                                        <h4>奔驰 E300L</h4>
+                                        <p>粤B 54321</p>
+                                    </div>
+                                    <div class="vehicle-status unlocked">
+                                        <span class="status-icon">&#128275;</span>
+                                        <span>已解锁</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="vehicle-card">
+                                    <div class="vehicle-icon">&#128665;</div>
+                                    <div class="vehicle-details">
+                                        <h4>特斯拉 Model Y</h4>
+                                        <p>粤C 98765</p>
+                                    </div>
+                                    <div class="vehicle-status locked">
+                                        <span class="status-icon">&#128274;</span>
+                                        <span>已锁定</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-section activity-section">
+                            <div class="section-header">
+                                <h3>最近活动</h3>
+                                <a href="#" class="view-all">查看全部</a>
+                            </div>
+                            
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon success">&#128275;</div>
+                                    <div class="activity-details">
+                                        <h4>宝马 X5 车门解锁</h4>
+                                        <p>通过声纹验证</p>
+                                    </div>
+                                    <div class="activity-time">10分钟前</div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-icon warning">&#128274;</div>
+                                    <div class="activity-details">
+                                        <h4>宝马 X5 车门锁定</h4>
+                                        <p>自动锁定</p>
+                                    </div>
+                                    <div class="activity-time">9分钟前</div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-icon danger">&#9888;</div>
+                                    <div class="activity-details">
+                                        <h4>声纹验证失败</h4>
+                                        <p>奔驰 E300L</p>
+                                    </div>
+                                    <div class="activity-time">1小时前</div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-icon info">&#128161;</div>
+                                    <div class="activity-details">
+                                        <h4>添加新语音指令</h4>
+                                        <p>"打开天窗"</p>
+                                    </div>
+                                    <div class="activity-time">昨天</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-row">
+                        <div class="dashboard-section voice-section">
+                            <div class="section-header">
+                                <h3>声纹状态</h3>
+                                <button class="update-btn">更新声纹</button>
+                            </div>
+                            
+                            <div class="voice-metrics">
+                                <div class="voice-quality">
+                                    <h4>声纹质量评分</h4>
+                                    <div class="quality-score">
+                                        <div class="score-circle">
+                                            <span class="score">92</span>
+                                        </div>
+                                        <div class="score-text">优秀</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="voice-metrics-details">
+                                    <div class="metric">
+                                        <div class="metric-label">唯一性</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-value" style="width: 94%"></div>
+                                        </div>
+                                        <div class="metric-number">94%</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-label">稳定性</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-value" style="width: 87%"></div>
+                                        </div>
+                                        <div class="metric-number">87%</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-label">清晰度</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-value" style="width: 95%"></div>
+                                        </div>
+                                        <div class="metric-number">95%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="voice-security">
+                                <h4>安全建议</h4>
+                                <ul class="security-tips">
+                                    <li>定期更新您的声纹样本以提高识别准确率</li>
+                                    <li>在不同环境下录制声纹以增强适应性</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-section alerts-section">
+                            <div class="section-header">
+                                <h3>安全警报</h3>
+                                <a href="#" class="view-all">查看全部</a>
+                            </div>
+                            
+                            <div class="alerts-list">
+                                <div class="alert-item high">
+                                    <div class="alert-icon">&#9888;</div>
+                                    <div class="alert-details">
+                                        <h4>检测到异常登录尝试</h4>
+                                        <p>奔驰 E300L - 今天 09:32</p>
+                                    </div>
+                                    <button class="alert-action">处理</button>
+                                </div>
+                                
+                                <div class="alert-item medium">
+                                    <div class="alert-icon">&#8505;</div>
+                                    <div class="alert-details">
+                                        <h4>声纹样本已超过3个月未更新</h4>
+                                        <p>建议更新以保持高识别率</p>
+                                    </div>
+                                    <button class="alert-action">处理</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <footer class="dashboard-footer">
+                    <p>&copy; 2023 SmartVoice Security Technologies</p>
+                    <p>DeepSeek AI 增强版 | 版本 3.2.1</p>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+</html> 

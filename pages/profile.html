@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartVoice Pro - 个人资料</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- 侧边导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">&#127897;</span>
+                    <h1>SmartVoice</h1>
+                </div>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <span>张</span>
+                </div>
+                <div class="user-details">
+                    <h3>张先生</h3>
+                    <p>高级会员</p>
+                </div>
+            </div>
+            
+            <nav class="side-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <span class="nav-icon">&#128202;</span>
+                            <span>仪表盘</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="verify.html">
+                            <span class="nav-icon">&#128272;</span>
+                            <span>声纹验证</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="profile.html">
+                            <span class="nav-icon">&#128100;</span>
+                            <span>个人资料</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="vehicles.html">
+                            <span class="nav-icon">&#128664;</span>
+                            <span>我的车辆</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <span class="nav-icon">&#9881;</span>
+                            <span>设置</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <span class="nav-icon">&#10067;</span>
+                            <span>帮助中心</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="logout-btn">
+                    <span class="nav-icon">&#128682;</span>
+                    <span>退出登录</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="page-title">
+                    <h2>个人资料</h2>
+                    <p>管理您的个人信息与账户设置</p>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="action-btn notifications">
+                        <span class="action-icon">&#128276;</span>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="action-btn messages">
+                        <span class="action-icon">&#9993;</span>
+                        <span class="badge">5</span>
+                    </button>
+                </div>
+            </header>
+            
+            <div class="profile-content">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle">
+                            <span>张</span>
+                        </div>
+                        <button class="change-avatar-btn">更换头像</button>
+                    </div>
+                    
+                    <div class="profile-summary">
+                        <h3>张先生</h3>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-icon">&#128222;</span>
+                                <span>138****5678</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">&#9993;</span>
+                                <span>zh****@example.com</span>
+                            </div>
+                            <div class="info-item membership">
+                                <span class="info-icon">&#127942;</span>
+                                <span>高级会员</span>
+                                <span class="expires">有效期至：2025-06-30</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button class="action-button primary">
+                            <span class="action-icon">&#128221;</span>
+                            <span>编辑资料</span>
+                        </button>
+                        <button class="action-button secondary">
+                            <span class="action-icon">&#128274;</span>
+                            <span>更改密码</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="profile-tabs">
+                    <button class="profile-tab active" data-tab="basic-info">基本信息</button>
+                    <button class="profile-tab" data-tab="security">安全设置</button>
+                    <button class="profile-tab" data-tab="payment">支付信息</button>
+                    <button class="profile-tab" data-tab="notifications">通知设置</button>
+                </div>
+                
+                <div class="profile-panels">
+                    <!-- 基本信息面板 -->
+                    <div class="profile-panel active" id="basic-info-panel">
+                        <form class="profile-form">
+                            <div class="form-section">
+                                <h4>个人信息</h4>
+                                
+                                <div class="form-group">
+                                    <label for="fullName">姓名</label>
+                                    <input type="text" id="fullName" value="张三" placeholder="请输入您的姓名">
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="gender">性别</label>
+                                        <select id="gender">
+                                            <option value="male" selected>男</option>
+                                            <option value="female">女</option>
+                                            <option value="other">其他</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="birthday">出生日期</label>
+                                        <input type="date" id="birthday" value="1985-01-15">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="idCard">身份证号</label>
+                                    <input type="text" id="idCard" value="3****************X" placeholder="请输入您的身份证号" readonly>
+                                    <span class="masked-note">出于安全考虑，部分信息已隐藏</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="driverLicense">驾驶证号</label>
+                                    <input type="text" id="driverLicense" value="4****************5" placeholder="请输入您的驾驶证号">
+                                </div>
+                            </div>
+                            
+                            <div class="form-section">
+                                <h4>联系方式</h4>
+                                
+                                <div class="form-group">
+                                    <label for="phone">手机号码</label>
+                                    <div class="input-with-action">
+                                        <input type="tel" id="phone" value="13812345678" placeholder="请输入您的手机号码">
+                                        <button type="button" class="input-action-btn">修改</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">电子邮箱</label>
+                                    <div class="input-with-action">
+                                        <input type="email" id="email" value="zhangsan@example.com" placeholder="请输入您的电子邮箱">
+                                        <button type="button" class="input-action-btn">修改</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="address">常用地址</label>
+                                    <textarea id="address" placeholder="请输入您的常用地址">广东省广州市天河区珠江新城 XX号大厦</textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-section">
+                                <h4>紧急联系人</h4>
+                                
+                                <div class="form-group">
+                                    <label for="emergencyName">姓名</label>
+                                    <input type="text" id="emergencyName" value="李四" placeholder="请输入紧急联系人姓名">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="emergencyPhone">手机号码</label>
+                                    <input type="tel" id="emergencyPhone" value="13987654321" placeholder="请输入紧急联系人手机号码">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="emergencyRelation">关系</label>
+                                    <select id="emergencyRelation">
+                                        <option value="family" selected>家人</option>
+                                        <option value="friend">朋友</option>
+                                        <option value="colleague">同事</option>
+                                        <option value="other">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="form-submit-btn">保存修改</button>
+                                <button type="reset" class="form-reset-btn">重置</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- 安全设置面板 -->
+                    <div class="profile-panel" id="security-panel">
+                        <div class="security-summary">
+                            <div class="security-level">
+                                <div class="level-icon high">&#128274;</div>
+                                <div class="level-details">
+                                    <h4>账户安全等级：高</h4>
+                                    <p>最后一次安全检查：2023年6月10日</p>
+                                </div>
+                                <button class="scan-btn">安全扫描</button>
+                            </div>
+                        </div>
+                        
+                        <div class="security-settings">
+                            <div class="security-item">
+                                <div class="security-item-header">
+                                    <div class="security-item-icon">&#128272;</div>
+                                    <div class="security-item-title">登录密码</div>
+                                    <div class="security-item-status">已设置</div>
+                                </div>
+                                <div class="security-item-content">
+                                    <p>上次修改时间：2023年5月15日</p>
+                                    <p>建议定期修改密码以提高账户安全性</p>
+                                    <button class="security-action-btn">修改密码</button>
+                                </div>
+                            </div>
+                            
+                            <div class="security-item">
+                                <div class="security-item-header">
+                                    <div class="security-item-icon">&#128241;</div>
+                                    <div class="security-item-title">手机验证</div>
+                                    <div class="security-item-status">已绑定</div>
+                                </div>
+                                <div class="security-item-content">
+                                    <p>绑定手机: 138****5678</p>
+                                    <p>用于接收验证码和重要通知</p>
+                                    <button class="security-action-btn">更换手机</button>
+                                </div>
+                            </div>
+                            
+                            <div class="security-item">
+                                <div class="security-item-header">
+                                    <div class="security-item-icon">&#127897;</div>
+                                    <div class="security-item-title">声纹验证</div>
+                                    <div class="security-item-status">已启用</div>
+                                </div>
+                                <div class="security-item-content">
+                                    <p>上次更新时间：2023年6月1日</p>
+                                    <p>使用声音即可验证身份，增强安全性</p>
+                                    <button class="security-action-btn">管理声纹</button>
+                                </div>
+                            </div>
+                            
+                            <div class="security-item">
+                                <div class="security-item-header">
+                                    <div class="security-item-icon">&#128101;</div>
+                                    <div class="security-item-title">面部识别</div>
+                                    <div class="security-item-status inactive">未设置</div>
+                                </div>
+                                <div class="security-item-content">
+                                    <p>设置面部识别，增加一层安全保障</p>
+                                    <button class="security-action-btn">立即设置</button>
+                                </div>
+                            </div>
+                            
+                            <div class="security-item">
+                                <div class="security-item-header">
+                                    <div class="security-item-icon">&#128681;</div>
+                                    <div class="security-item-title">登录通知</div>
+                                    <div class="security-item-status">已启用</div>
+                                </div>
+                                <div class="security-item-content">
+                                    <p>当账户在新设备登录时，系统将发送通知</p>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="loginNotification" checked>
+                                        <label for="loginNotification"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 支付信息面板 -->
+                    <div class="profile-panel" id="payment-panel">
+                        <div class="payment-methods">
+                            <h4>支付方式</h4>
+                            
+                            <div class="payment-list">
+                                <div class="payment-card">
+                                    <div class="payment-card-icon bank">&#127991;</div>
+                                    <div class="payment-card-details">
+                                        <h5>中国银行信用卡 (尾号3456)</h5>
+                                        <p>到期日: 08/25</p>
+                                    </div>
+                                    <div class="payment-card-actions">
+                                        <button class="card-action-btn default">默认</button>
+                                        <button class="card-action-btn">编辑</button>
+                                        <button class="card-action-btn">删除</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-card">
+                                    <div class="payment-card-icon alipay">&#67;</div>
+                                    <div class="payment-card-details">
+                                        <h5>支付宝账户</h5>
+                                        <p>zh****@example.com</p>
+                                    </div>
+                                    <div class="payment-card-actions">
+                                        <button class="card-action-btn">设为默认</button>
+                                        <button class="card-action-btn">解绑</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="add-payment-card">
+                                    <div class="add-card-icon">+</div>
+                                    <p>添加支付方式</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="subscription-info">
+                            <h4>订阅信息</h4>
+                            
+                            <div class="subscription-details">
+                                <div class="subscription-plan">
+                                    <div class="plan-icon">&#127942;</div>
+                                    <div class="plan-details">
+                                        <h5>高级会员 (年度计划)</h5>
+                                        <p>下次续费日期: 2024年6月30日</p>
+                                        <p>￥1,299.00/年</p>
+                                    </div>
+                                    <div class="plan-actions">
+                                        <button class="plan-action-btn upgrade">升级</button>
+                                        <button class="plan-action-btn cancel">取消订阅</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="plan-features">
+                                    <h5>会员特权</h5>
+                                    <ul>
+                                        <li>无限次声纹识别</li>
+                                        <li>多车辆支持 (最多5辆)</li>
+                                        <li>自定义语音指令 (最多10个)</li>
+                                        <li>优先客户服务</li>
+                                        <li>高级安全功能</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="billing-history">
+                            <h4>账单历史</h4>
+                            
+                            <table class="billing-table">
+                                <thead>
+                                    <tr>
+                                        <th>日期</th>
+                                        <th>描述</th>
+                                        <th>金额</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2023-06-30</td>
+                                        <td>高级会员年费</td>
+                                        <td>￥1,299.00</td>
+                                        <td class="status-success">已支付</td>
+                                        <td><button class="table-action-btn">下载发票</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2022-06-30</td>
+                                        <td>高级会员年费</td>
+                                        <td>￥1,299.00</td>
+                                        <td class="status-success">已支付</td>
+                                        <td><button class="table-action-btn">下载发票</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2021-06-30</td>
+                                        <td>基础会员年费</td>
+                                        <td>￥699.00</td>
+                                        <td class="status-success">已支付</td>
+                                        <td><button class="table-action-btn">下载发票</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- 通知设置面板 -->
+                    <div class="profile-panel" id="notifications-panel">
+                        <div class="notification-settings">
+                            <h4>通知偏好设置</h4>
+                            <p class="section-desc">选择您希望接收的通知类型及方式</p>
+                            
+                            <div class="notification-group">
+                                <div class="notification-header">
+                                    <h5>安全通知</h5>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-title">账户登录</div>
+                                    <div class="notification-channels">
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">短信</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">邮件</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">应用</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-title">密码更改</div>
+                                    <div class="notification-channels">
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">短信</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">邮件</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">应用</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-title">异常登录尝试</div>
+                                    <div class="notification-channels">
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">短信</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">邮件</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">应用</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-group">
+                                <div class="notification-header">
+                                    <h5>车辆通知</h5>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-title">车门状态变化</div>
+                                    <div class="notification-channels">
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">短信</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox">
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">邮件</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">应用</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-title">引擎启动</div>
+                                    <div class="notification-channels">
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">短信</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox">
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">邮件</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">应用</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-title">声纹验证失败</div>
+                                    <div class="notification-channels">
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">短信</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">邮件</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">应用</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-group">
+                                <div class="notification-header">
+                                    <h5>系统与营销</h5>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-title">系统更新</div>
+                                    <div class="notification-channels">
+                                        <label class="channel-switch">
+                                            <input type="checkbox">
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">短信</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">邮件</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">应用</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-title">产品优惠</div>
+                                    <div class="notification-channels">
+                                        <label class="channel-switch">
+                                            <input type="checkbox">
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">短信</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox">
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">邮件</span>
+                                        </label>
+                                        <label class="channel-switch">
+                                            <input type="checkbox">
+                                            <span class="switch-slider"></span>
+                                            <span class="channel-label">应用</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-actions">
+                                <button class="notification-btn save">保存设置</button>
+                                <button class="notification-btn reset">重置为默认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="dashboard-footer">
+                <p>&copy; 2023 SmartVoice Security Technologies</p>
+                <p>DeepSeek AI 增强版 | 版本 3.2.1</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../js/profile.js"></script>
+</body>
+</html> 

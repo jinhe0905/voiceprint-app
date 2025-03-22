@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仪表盘 - 智能车门解锁系统</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="bi bi-soundwave"></i>
+                    <span>声纹通</span>
+                </div>
+                <button id="menuToggle" class="menu-toggle">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="dashboard.html"><i class="bi bi-speedometer2"></i> <span>仪表盘</span></a></li>
+                    <li><a href="verify.html"><i class="bi bi-shield-check"></i> <span>声纹验证</span></a></li>
+                    <li><a href="profile.html"><i class="bi bi-person-circle"></i> <span>个人资料</span></a></li>
+                    <li><a href="vehicles.html"><i class="bi bi-car-front"></i> <span>我的车辆</span></a></li>
+                    <li><a href="history.html"><i class="bi bi-clock-history"></i> <span>使用记录</span></a></li>
+                    <li><a href="settings.html"><i class="bi bi-gear"></i> <span>设置</span></a></li>
+                    <li><a href="help.html"><i class="bi bi-question-circle"></i> <span>帮助</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn"><i class="bi bi-box-arrow-left"></i> <span>退出登录</span></a>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>仪表盘 <span class="ai-badge">DeepSeek AI</span></h1>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-info">
+                        <img src="img/avatar.jpg" alt="用户头像" class="avatar">
+                        <span class="username">李明</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- 欢迎消息 -->
+                <div class="welcome-message">
+                    <div class="welcome-text">
+                        <h2>欢迎回来，李明</h2>
+                        <p>您上次登录时间: 2023年11月15日 10:23</p>
+                    </div>
+                    <div class="welcome-action">
+                        <a href="verify.html" class="btn btn-primary">
+                            <i class="bi bi-shield-check"></i> 开始声纹验证
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 统计卡片 -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">26</div>
+                            <div class="stat-label">成功验证次数</div>
+                        </div>
+                        <div class="stat-chart">
+                            <i class="bi bi-arrow-up"></i>
+                            <span class="stat-change success">+12%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon secondary">
+                            <i class="bi bi-car-front"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">已绑定车辆</div>
+                        </div>
+                        <div class="stat-chart">
+                            <i class="bi bi-arrow-up"></i>
+                            <span class="stat-change success">+1</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="bi bi-headset"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">95%</div>
+                            <div class="stat-label">语音识别率</div>
+                        </div>
+                        <div class="stat-chart">
+                            <i class="bi bi-arrow-up"></i>
+                            <span class="stat-change success">+5%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i class="bi bi-lock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">安全警告</div>
+                        </div>
+                        <div class="stat-chart">
+                            <i class="bi bi-dash"></i>
+                            <span class="stat-change neutral">无变化</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 内容区域 -->
+                <div class="dashboard-grid">
+                    <!-- 最近活动 -->
+                    <div class="dashboard-card recent-activity">
+                        <div class="card-header">
+                            <h3 class="card-title">最近活动</h3>
+                            <a href="history.html" class="view-all">查看全部</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon success">
+                                        <i class="bi bi-unlock"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="activity-title">车门解锁成功</div>
+                                        <div class="activity-meta">
+                                            <span class="activity-vehicle">奔驰 S级</span>
+                                            <span class="activity-time">今天 08:45</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon success">
+                                        <i class="bi bi-box"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="activity-title">后备箱开启</div>
+                                        <div class="activity-meta">
+                                            <span class="activity-vehicle">奔驰 S级</span>
+                                            <span class="activity-time">今天 08:47</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon danger">
+                                        <i class="bi bi-x-circle"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="activity-title">验证失败</div>
+                                        <div class="activity-meta">
+                                            <span class="activity-vehicle">宝马 5系</span>
+                                            <span class="activity-time">昨天 17:30</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon success">
+                                        <i class="bi bi-lock"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="activity-title">车门锁定</div>
+                                        <div class="activity-meta">
+                                            <span class="activity-vehicle">奔驰 S级</span>
+                                            <span class="activity-time">昨天 12:15</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon info">
+                                        <i class="bi bi-person-check"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="activity-title">声纹模板更新</div>
+                                        <div class="activity-meta">
+                                            <span class="activity-vehicle">系统</span>
+                                            <span class="activity-time">3天前</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 声纹质量 -->
+                    <div class="dashboard-card voice-quality">
+                        <div class="card-header">
+                            <h3 class="card-title">声纹质量</h3>
+                            <button class="btn btn-sm btn-ghost">更新</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="quality-radar">
+                                <div class="radar-chart">
+                                    <canvas id="radarChart" width="240" height="240"></canvas>
+                                </div>
+                                <div class="radar-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-color uniqueness"></span>
+                                        <span class="legend-label">唯一性</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color stability"></span>
+                                        <span class="legend-label">稳定性</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color clarity"></span>
+                                        <span class="legend-label">清晰度</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color recognition"></span>
+                                        <span class="legend-label">识别率</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color security"></span>
+                                        <span class="legend-label">安全性</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="quality-summary">
+                                <div class="quality-score">
+                                    <div class="score-value">92</div>
+                                    <div class="score-label">总体评分</div>
+                                </div>
+                                <div class="quality-recommendation">
+                                    <h4>提升建议</h4>
+                                    <p>尝试在不同的环境下录制声纹模板，以提高识别率和适应性</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 车辆状态 -->
+                    <div class="dashboard-card vehicle-status">
+                        <div class="card-header">
+                            <h3 class="card-title">车辆状态</h3>
+                            <div class="card-filter">
+                                <select id="vehicleSelect" class="form-control">
+                                    <option value="car1">奔驰 S级</option>
+                                    <option value="car2">宝马 5系</option>
+                                    <option value="car3">特斯拉 Model 3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="vehicle-display">
+                                <div class="vehicle-model">
+                                    <div class="vehicle-image">
+                                        <i class="bi bi-car-front"></i>
+                                    </div>
+                                    <div class="vehicle-info">
+                                        <div class="vehicle-name">奔驰 S级</div>
+                                        <div class="vehicle-plate">京A12345</div>
+                                    </div>
+                                </div>
+                                <div class="vehicle-indicators">
+                                    <div class="vehicle-indicator locked">
+                                        <i class="bi bi-lock"></i>
+                                        <span>已锁定</span>
+                                    </div>
+                                    <div class="vehicle-indicator engine-off">
+                                        <i class="bi bi-key"></i>
+                                        <span>发动机关闭</span>
+                                    </div>
+                                    <div class="vehicle-indicator windows-closed">
+                                        <i class="bi bi-window"></i>
+                                        <span>车窗关闭</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vehicle-actions">
+                                <button class="btn btn-sm btn-primary">
+                                    <i class="bi bi-unlock"></i> 解锁车门
+                                </button>
+                                <button class="btn btn-sm btn-secondary">
+                                    <i class="bi bi-box"></i> 打开后备箱
+                                </button>
+                                <button class="btn btn-sm btn-ghost">
+                                    <i class="bi bi-gear"></i> 更多操作
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 用户偏好 -->
+                    <div class="dashboard-card user-preferences">
+                        <div class="card-header">
+                            <h3 class="card-title">快速设置</h3>
+                            <a href="settings.html" class="view-all">全部设置</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="preference-list">
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <div class="preference-title">自动锁定</div>
+                                        <div class="preference-description">离开车辆30秒后自动锁定</div>
+                                    </div>
+                                    <div class="preference-control">
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <div class="preference-title">声音反馈</div>
+                                        <div class="preference-description">操作成功时发出提示音</div>
+                                    </div>
+                                    <div class="preference-control">
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <div class="preference-title">活动通知</div>
+                                        <div class="preference-description">接收车辆状态变化通知</div>
+                                    </div>
+                                    <div class="preference-control">
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <div class="preference-title">增强安全</div>
+                                        <div class="preference-description">需要附加密码验证</div>
+                                    </div>
+                                    <div class="preference-control">
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 

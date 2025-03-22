@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人资料 - 智能车门解锁系统</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="bi bi-soundwave"></i>
+                    <span>声纹通</span>
+                </div>
+                <button id="menuToggle" class="menu-toggle">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="bi bi-speedometer2"></i> <span>仪表盘</span></a></li>
+                    <li><a href="verify.html"><i class="bi bi-shield-check"></i> <span>声纹验证</span></a></li>
+                    <li class="active"><a href="profile.html"><i class="bi bi-person-circle"></i> <span>个人资料</span></a></li>
+                    <li><a href="vehicles.html"><i class="bi bi-car-front"></i> <span>我的车辆</span></a></li>
+                    <li><a href="history.html"><i class="bi bi-clock-history"></i> <span>使用记录</span></a></li>
+                    <li><a href="settings.html"><i class="bi bi-gear"></i> <span>设置</span></a></li>
+                    <li><a href="help.html"><i class="bi bi-question-circle"></i> <span>帮助</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn"><i class="bi bi-box-arrow-left"></i> <span>退出登录</span></a>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>个人资料 <span class="ai-badge">DeepSeek AI</span></h1>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-info">
+                        <img src="img/avatar.jpg" alt="用户头像" class="avatar">
+                        <span class="username">李明</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="profile-content">
+                <!-- 个人资料概览 -->
+                <div class="profile-overview">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img src="img/avatar.jpg" alt="用户头像">
+                            <button class="change-avatar-btn">
+                                <i class="bi bi-camera"></i>
+                            </button>
+                        </div>
+                        <div class="profile-info">
+                            <h2>李明</h2>
+                            <p class="user-id">ID: <span>VP20231115001</span></p>
+                            <p class="join-date">加入时间: <span>2023年11月15日</span></p>
+                            <div class="profile-status">
+                                <span class="status-badge verified">
+                                    <i class="bi bi-check-circle"></i> 已验证
+                                </span>
+                                <span class="status-badge premium">
+                                    <i class="bi bi-star"></i> 高级会员
+                                </span>
+                            </div>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="btn btn-primary">
+                                <i class="bi bi-pencil"></i> 编辑资料
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 个人信息与声纹模板 -->
+                <div class="profile-sections">
+                    <!-- 个人信息 -->
+                    <div class="profile-section">
+                        <div class="section-header">
+                            <h3>个人信息</h3>
+                            <button class="btn btn-sm btn-ghost section-edit-btn">
+                                <i class="bi bi-pencil"></i> 编辑
+                            </button>
+                        </div>
+                        <div class="section-body">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="bi bi-person"></i> 姓名
+                                    </div>
+                                    <div class="info-value">李明</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="bi bi-phone"></i> 手机
+                                    </div>
+                                    <div class="info-value">138****1234</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="bi bi-envelope"></i> 邮箱
+                                    </div>
+                                    <div class="info-value">liming@example.com</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="bi bi-gender-ambiguous"></i> 性别
+                                    </div>
+                                    <div class="info-value">男</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="bi bi-calendar-event"></i> 生日
+                                    </div>
+                                    <div class="info-value">1990-01-15</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="bi bi-geo-alt"></i> 地址
+                                    </div>
+                                    <div class="info-value">北京市海淀区</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 声纹模板 -->
+                    <div class="profile-section">
+                        <div class="section-header">
+                            <h3>声纹模板</h3>
+                            <div class="template-actions">
+                                <button class="btn btn-sm btn-primary">
+                                    <i class="bi bi-plus"></i> 录制新模板
+                                </button>
+                                <button class="btn btn-sm btn-ghost">
+                                    <i class="bi bi-arrow-repeat"></i> 更新
+                                </button>
+                            </div>
+                        </div>
+                        <div class="section-body">
+                            <div class="template-overview">
+                                <div class="template-info">
+                                    <div class="template-stats">
+                                        <div class="stat-item">
+                                            <div class="stat-value">3</div>
+                                            <div class="stat-label">已保存模板</div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <div class="stat-value">92%</div>
+                                            <div class="stat-label">模板质量</div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <div class="stat-value">2023-11-28</div>
+                                            <div class="stat-label">上次更新</div>
+                                        </div>
+                                    </div>
+                                    <div class="template-quality">
+                                        <h4>声纹模板质量评估</h4>
+                                        <div class="quality-metrics">
+                                            <div class="metric">
+                                                <div class="metric-label">唯一性</div>
+                                                <div class="metric-bar">
+                                                    <div class="metric-value" style="width: 95%;"></div>
+                                                </div>
+                                                <div class="metric-number">95%</div>
+                                            </div>
+                                            <div class="metric">
+                                                <div class="metric-label">稳定性</div>
+                                                <div class="metric-bar">
+                                                    <div class="metric-value" style="width: 88%;"></div>
+                                                </div>
+                                                <div class="metric-number">88%</div>
+                                            </div>
+                                            <div class="metric">
+                                                <div class="metric-label">清晰度</div>
+                                                <div class="metric-bar">
+                                                    <div class="metric-value" style="width: 92%;"></div>
+                                                </div>
+                                                <div class="metric-number">92%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="template-list">
+                                <h4>已保存的声纹模板</h4>
+                                <div class="templates">
+                                    <div class="template-item">
+                                        <div class="template-header">
+                                            <div class="template-title">
+                                                <i class="bi bi-soundwave"></i>
+                                                <span>主要声纹模板</span>
+                                            </div>
+                                            <div class="template-actions">
+                                                <button class="btn-icon">
+                                                    <i class="bi bi-play"></i>
+                                                </button>
+                                                <button class="btn-icon">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="template-body">
+                                            <div class="template-waveform">
+                                                <div class="waveform-visual"></div>
+                                            </div>
+                                            <div class="template-details">
+                                                <div class="detail-item">
+                                                    <span class="detail-label">创建时间:</span>
+                                                    <span class="detail-value">2023-11-15</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="detail-label">质量评分:</span>
+                                                    <span class="detail-value">98%</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="detail-label">使用次数:</span>
+                                                    <span class="detail-value">26次</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="template-item">
+                                        <div class="template-header">
+                                            <div class="template-title">
+                                                <i class="bi bi-soundwave"></i>
+                                                <span>办公环境模板</span>
+                                            </div>
+                                            <div class="template-actions">
+                                                <button class="btn-icon">
+                                                    <i class="bi bi-play"></i>
+                                                </button>
+                                                <button class="btn-icon">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="template-body">
+                                            <div class="template-waveform">
+                                                <div class="waveform-visual"></div>
+                                            </div>
+                                            <div class="template-details">
+                                                <div class="detail-item">
+                                                    <span class="detail-label">创建时间:</span>
+                                                    <span class="detail-value">2023-11-20</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="detail-label">质量评分:</span>
+                                                    <span class="detail-value">92%</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="detail-label">使用次数:</span>
+                                                    <span class="detail-value">8次</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="template-item">
+                                        <div class="template-header">
+                                            <div class="template-title">
+                                                <i class="bi bi-soundwave"></i>
+                                                <span>外出模板</span>
+                                            </div>
+                                            <div class="template-actions">
+                                                <button class="btn-icon">
+                                                    <i class="bi bi-play"></i>
+                                                </button>
+                                                <button class="btn-icon">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="template-body">
+                                            <div class="template-waveform">
+                                                <div class="waveform-visual"></div>
+                                            </div>
+                                            <div class="template-details">
+                                                <div class="detail-item">
+                                                    <span class="detail-label">创建时间:</span>
+                                                    <span class="detail-value">2023-11-28</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="detail-label">质量评分:</span>
+                                                    <span class="detail-value">86%</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="detail-label">使用次数:</span>
+                                                    <span class="detail-value">4次</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 安全设置与认证历史 -->
+                <div class="profile-sections">
+                    <!-- 安全设置 -->
+                    <div class="profile-section">
+                        <div class="section-header">
+                            <h3>安全设置</h3>
+                        </div>
+                        <div class="section-body">
+                            <div class="security-settings">
+                                <div class="security-item">
+                                    <div class="security-info">
+                                        <div class="security-icon">
+                                            <i class="bi bi-shield-lock"></i>
+                                        </div>
+                                        <div class="security-details">
+                                            <h4>账户密码</h4>
+                                            <p>设置强密码保护您的账户安全</p>
+                                        </div>
+                                    </div>
+                                    <div class="security-action">
+                                        <button class="btn btn-sm btn-outline">修改密码</button>
+                                    </div>
+                                </div>
+                                <div class="security-item">
+                                    <div class="security-info">
+                                        <div class="security-icon">
+                                            <i class="bi bi-phone"></i>
+                                        </div>
+                                        <div class="security-details">
+                                            <h4>手机验证</h4>
+                                            <p>已绑定 138****1234</p>
+                                        </div>
+                                    </div>
+                                    <div class="security-action">
+                                        <button class="btn btn-sm btn-outline">更换手机</button>
+                                    </div>
+                                </div>
+                                <div class="security-item">
+                                    <div class="security-info">
+                                        <div class="security-icon">
+                                            <i class="bi bi-fingerprint"></i>
+                                        </div>
+                                        <div class="security-details">
+                                            <h4>双因素认证</h4>
+                                            <p>使用声纹+密码的双重验证</p>
+                                        </div>
+                                    </div>
+                                    <div class="security-action">
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="security-item">
+                                    <div class="security-info">
+                                        <div class="security-icon">
+                                            <i class="bi bi-bell"></i>
+                                        </div>
+                                        <div class="security-details">
+                                            <h4>安全通知</h4>
+                                            <p>接收账户活动和安全警报</p>
+                                        </div>
+                                    </div>
+                                    <div class="security-action">
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 认证历史 -->
+                    <div class="profile-section">
+                        <div class="section-header">
+                            <h3>近期认证记录</h3>
+                            <a href="history.html" class="view-all">查看全部</a>
+                        </div>
+                        <div class="section-body">
+                            <div class="auth-history">
+                                <div class="auth-item success">
+                                    <div class="auth-icon">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                    <div class="auth-details">
+                                        <div class="auth-title">声纹验证成功</div>
+                                        <div class="auth-meta">
+                                            <span class="auth-time">今天 08:45</span>
+                                            <span class="auth-device">iPhone 13 Pro</span>
+                                            <span class="auth-location">北京市海淀区</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="auth-item success">
+                                    <div class="auth-icon">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                    <div class="auth-details">
+                                        <div class="auth-title">声纹验证成功</div>
+                                        <div class="auth-meta">
+                                            <span class="auth-time">昨天 17:30</span>
+                                            <span class="auth-device">Web浏览器</span>
+                                            <span class="auth-location">北京市朝阳区</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="auth-item failed">
+                                    <div class="auth-icon">
+                                        <i class="bi bi-shield-x"></i>
+                                    </div>
+                                    <div class="auth-details">
+                                        <div class="auth-title">声纹验证失败</div>
+                                        <div class="auth-meta">
+                                            <span class="auth-time">昨天 16:15</span>
+                                            <span class="auth-device">未知设备</span>
+                                            <span class="auth-location">北京市朝阳区</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="auth-item success">
+                                    <div class="auth-icon">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                    <div class="auth-details">
+                                        <div class="auth-title">声纹验证成功</div>
+                                        <div class="auth-meta">
+                                            <span class="auth-time">2023-11-29 09:12</span>
+                                            <span class="auth-device">iPhone 13 Pro</span>
+                                            <span class="auth-location">北京市海淀区</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/profile.js"></script>
+</body>
+</html> 

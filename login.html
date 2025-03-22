@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 智能车门解锁系统</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-left">
+            <div class="login-decoration">
+                <div class="decoration-circles">
+                    <div class="circle circle-1"></div>
+                    <div class="circle circle-2"></div>
+                    <div class="circle circle-3"></div>
+                    <div class="circle circle-4"></div>
+                </div>
+                <div class="login-app-showcase">
+                    <div class="showcase-card">
+                        <div class="showcase-header">
+                            <div class="showcase-app-name">
+                                <i class="bi bi-soundwave"></i>
+                                <span>声纹通</span>
+                            </div>
+                            <div class="showcase-user">
+                                <div class="showcase-avatar">
+                                    <i class="bi bi-person-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="showcase-content">
+                            <div class="showcase-status">
+                                <i class="bi bi-shield-check"></i>
+                                <span>声纹验证成功</span>
+                            </div>
+                            <div class="showcase-vehicle">
+                                <div class="vehicle-icon">
+                                    <i class="bi bi-car-front"></i>
+                                </div>
+                                <div class="vehicle-info">
+                                    <span class="vehicle-name">奔驰 S级</span>
+                                    <span class="vehicle-status unlocked">已解锁</span>
+                                </div>
+                            </div>
+                            <div class="showcase-buttons">
+                                <div class="showcase-btn">
+                                    <i class="bi bi-lock"></i>
+                                </div>
+                                <div class="showcase-btn active">
+                                    <i class="bi bi-unlock"></i>
+                                </div>
+                                <div class="showcase-btn">
+                                    <i class="bi bi-box"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-indicators">
+                        <div class="indicator">
+                            <div class="indicator-label">DeepSeek AI</div>
+                            <div class="indicator-bar">
+                                <div class="indicator-value"></div>
+                            </div>
+                        </div>
+                        <div class="indicator">
+                            <div class="indicator-label">声纹识别</div>
+                            <div class="indicator-bar">
+                                <div class="indicator-value"></div>
+                            </div>
+                        </div>
+                        <div class="indicator">
+                            <div class="indicator-label">活体检测</div>
+                            <div class="indicator-bar">
+                                <div class="indicator-value"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="login-info">
+                <div class="app-description">
+                    <h2>智能声纹车门解锁系统</h2>
+                    <p>通过 DeepSeek AI 的先进声纹识别和活体检测技术，为您的车辆提供更安全、更便捷的解锁体验。</p>
+                </div>
+                <div class="app-features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>高级安全性</h3>
+                            <p>99.9% 准确率识别，有效防止录音回放</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="bi bi-headset"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>语音指令</h3>
+                            <p>支持开关车门、启动发动机等多种语音指令</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>使用分析</h3>
+                            <p>车辆使用记录和安全状态报告</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="login-right">
+            <div class="login-form-wrapper">
+                <div class="login-logo">
+                    <i class="bi bi-soundwave"></i>
+                    <h1>声纹通</h1>
+                </div>
+                <div class="ai-tag">
+                    <span>DeepSeek AI 提供技术支持</span>
+                </div>
+                <div class="login-tabs">
+                    <button class="login-tab active" data-target="login-form">登录</button>
+                    <button class="login-tab" data-target="register-form">注册</button>
+                </div>
+                <div class="forms-container">
+                    <!-- 登录表单 -->
+                    <form id="login-form" class="login-form active">
+                        <div class="form-group">
+                            <label for="login-phone">手机号码</label>
+                            <div class="input-icon-wrapper">
+                                <i class="bi bi-phone input-icon"></i>
+                                <input type="tel" id="login-phone" class="form-control input-with-icon" placeholder="请输入手机号码" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">密码</label>
+                            <div class="input-icon-wrapper">
+                                <i class="bi bi-lock input-icon"></i>
+                                <input type="password" id="login-password" class="form-control input-with-icon" placeholder="请输入密码" required>
+                            </div>
+                            <div class="form-helper text-right">
+                                <a href="#" class="forgot-link">忘记密码?</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block login-btn">
+                                <i class="bi bi-box-arrow-in-right"></i> 登录
+                            </button>
+                        </div>
+                        <div class="alternate-login">
+                            <div class="divider">
+                                <span>或使用以下方式登录</span>
+                            </div>
+                            <div class="social-login">
+                                <button type="button" class="social-btn wechat">
+                                    <i class="bi bi-wechat"></i>
+                                </button>
+                                <button type="button" class="social-btn alipay">
+                                    <i class="bi bi-alipay"></i>
+                                </button>
+                                <button type="button" class="social-btn weibo">
+                                    <i class="bi bi-sina-weibo"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- 注册表单 -->
+                    <form id="register-form" class="login-form">
+                        <div class="form-group">
+                            <label for="register-phone">手机号码</label>
+                            <div class="input-icon-wrapper">
+                                <i class="bi bi-phone input-icon"></i>
+                                <input type="tel" id="register-phone" class="form-control input-with-icon" placeholder="请输入手机号码" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="verification-code">验证码</label>
+                            <div class="verification-input">
+                                <div class="input-icon-wrapper">
+                                    <i class="bi bi-shield-check input-icon"></i>
+                                    <input type="text" id="verification-code" class="form-control input-with-icon" placeholder="请输入验证码" required>
+                                </div>
+                                <button type="button" class="btn btn-secondary get-code-btn">获取验证码</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">设置密码</label>
+                            <div class="input-icon-wrapper">
+                                <i class="bi bi-lock input-icon"></i>
+                                <input type="password" id="register-password" class="form-control input-with-icon" placeholder="至少8位，包含数字和字母" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">确认密码</label>
+                            <div class="input-icon-wrapper">
+                                <i class="bi bi-lock-fill input-icon"></i>
+                                <input type="password" id="confirm-password" class="form-control input-with-icon" placeholder="请再次输入密码" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="agreement-check">
+                                <input type="checkbox" id="agreement" required>
+                                <label for="agreement">我已阅读并同意 <a href="#">用户协议</a> 和 <a href="#">隐私政策</a></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block register-btn">
+                                <i class="bi bi-person-plus"></i> 注册
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="login-footer">
+                <p>© 2023 智能声纹车门解锁系统 版权所有</p>
+                <div class="footer-links">
+                    <a href="#">关于我们</a>
+                    <a href="#">联系我们</a>
+                    <a href="#">帮助中心</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html> 

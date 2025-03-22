@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartVoice Pro - 声纹验证</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/verify.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- 侧边导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">&#127897;</span>
+                    <h1>SmartVoice</h1>
+                </div>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <span>张</span>
+                </div>
+                <div class="user-details">
+                    <h3>张先生</h3>
+                    <p>高级会员</p>
+                </div>
+            </div>
+            
+            <nav class="side-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <span class="nav-icon">&#128202;</span>
+                            <span>仪表盘</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="verify.html">
+                            <span class="nav-icon">&#128272;</span>
+                            <span>声纹验证</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <span class="nav-icon">&#128100;</span>
+                            <span>个人资料</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="vehicles.html">
+                            <span class="nav-icon">&#128664;</span>
+                            <span>我的车辆</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <span class="nav-icon">&#9881;</span>
+                            <span>设置</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <span class="nav-icon">&#10067;</span>
+                            <span>帮助中心</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="logout-btn">
+                    <span class="nav-icon">&#128682;</span>
+                    <span>退出登录</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="page-title">
+                    <h2>声纹验证</h2>
+                    <p>录制或验证您的声纹以控制车辆</p>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="action-btn notifications">
+                        <span class="action-icon">&#128276;</span>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="action-btn messages">
+                        <span class="action-icon">&#9993;</span>
+                        <span class="badge">5</span>
+                    </button>
+                </div>
+            </header>
+            
+            <div class="verify-content">
+                <div class="verify-tabs">
+                    <button class="verify-tab active" data-tab="record">声纹录制</button>
+                    <button class="verify-tab" data-tab="verify">声纹验证</button>
+                    <button class="verify-tab" data-tab="control">车辆控制</button>
+                </div>
+                
+                <div class="verify-panels">
+                    <!-- 声纹录制面板 -->
+                    <div class="verify-panel active" id="recordPanel">
+                        <div class="panel-header">
+                            <h3>创建声纹模板</h3>
+                            <p>请清晰地录制您的声音样本，以便系统学习您独特的声纹特征。为保证识别准确度，请在安静环境中录制3-5秒的语音。</p>
+                        </div>
+                        
+                        <div class="record-instruction">
+                            <div class="instruction-icon">&#127908;</div>
+                            <div class="instruction-text">
+                                <p>请朗读以下句子：</p>
+                                <div class="sample-text">"开启车门，我要驾驶我的车辆"</div>
+                            </div>
+                        </div>
+                        
+                        <div class="audio-visualizer">
+                            <canvas id="recordVisualizer"></canvas>
+                        </div>
+                        
+                        <div class="control-panel">
+                            <button id="startRecording" class="control-btn primary">
+                                <span class="btn-icon">&#128354;</span>
+                                <span>开始录音</span>
+                            </button>
+                            <button id="stopRecording" class="control-btn danger" disabled>
+                                <span class="btn-icon">&#9209;</span>
+                                <span>停止录音</span>
+                            </button>
+                            <button id="saveVoiceprint" class="control-btn success" disabled>
+                                <span class="btn-icon">&#128190;</span>
+                                <span>保存声纹</span>
+                            </button>
+                        </div>
+                        
+                        <div id="recordingStatus" class="status-message"></div>
+                        
+                        <div class="voiceprint-report" id="voiceprintReport" style="display: none;">
+                            <h3>声纹质量报告</h3>
+                            <div class="quality-metrics">
+                                <div class="metric">
+                                    <div class="metric-label">唯一性</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-value" id="uniqueness-value"></div>
+                                    </div>
+                                    <div class="metric-number" id="uniqueness-number">0%</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">稳定性</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-value" id="stability-value"></div>
+                                    </div>
+                                    <div class="metric-number" id="stability-number">0%</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">清晰度</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-value" id="clarity-value"></div>
+                                    </div>
+                                    <div class="metric-number" id="clarity-number">0%</div>
+                                </div>
+                            </div>
+                            <div class="report-recommendations" id="reportRecommendations"></div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-icon">&#8505;</div>
+                            <p>声纹模板将安全地存储在您的账户中，并使用先进加密技术保护。您可以随时删除或更新声纹样本。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 声纹验证面板 -->
+                    <div class="verify-panel" id="verifyPanel">
+                        <div class="panel-header">
+                            <h3>声纹身份验证</h3>
+                            <p>请说出与您录制时相同的话语，系统将分析您的声音并验证您的身份。</p>
+                        </div>
+                        
+                        <div class="record-instruction">
+                            <div class="instruction-icon">&#127908;</div>
+                            <div class="instruction-text">
+                                <p>您还可以使用语音指令直接控制车辆，例如：</p>
+                                <div class="sample-text">"开启车门"、"打开后备箱"、"启动引擎"</div>
+                            </div>
+                        </div>
+                        
+                        <div class="audio-visualizer">
+                            <canvas id="verifyVisualizer"></canvas>
+                        </div>
+                        
+                        <div class="control-panel">
+                            <button id="startVerification" class="control-btn primary">
+                                <span class="btn-icon">&#128480;</span>
+                                <span>开始验证</span>
+                            </button>
+                            <button id="stopVerification" class="control-btn danger" disabled>
+                                <span class="btn-icon">&#9209;</span>
+                                <span>停止验证</span>
+                            </button>
+                        </div>
+                        
+                        <div id="verificationStatus" class="status-message"></div>
+                        <div id="verificationResult" class="result-message"></div>
+                        
+                        <div class="verify-details">
+                            <div class="verify-row">
+                                <div class="voice-command-result" id="commandResult" style="display: none;">
+                                    <h4>识别到的指令</h4>
+                                    <div class="command-box">
+                                        <span class="command-icon">&#128483;</span>
+                                        <span class="command-text" id="commandText">未识别</span>
+                                        <span class="command-confidence" id="commandConfidence"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="security-checks">
+                                    <h4>安全验证</h4>
+                                    <div class="security-check" id="livenessCheck">
+                                        <span class="check-icon">&#128308;</span>
+                                        <span class="check-label">活体检测</span>
+                                        <span class="check-status">待验证</span>
+                                    </div>
+                                    <div class="security-check" id="voiceprintCheck">
+                                        <span class="check-icon">&#128308;</span>
+                                        <span class="check-label">声纹匹配</span>
+                                        <span class="check-status">待验证</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 车辆控制面板 -->
+                    <div class="verify-panel" id="controlPanel">
+                        <div class="panel-header">
+                            <h3>车辆远程控制</h3>
+                            <p>通过声纹验证后，您可以远程控制您的车辆。</p>
+                        </div>
+                        
+                        <div class="vehicle-selector">
+                            <label for="vehicleSelect">选择要控制的车辆：</label>
+                            <select id="vehicleSelect">
+                                <option value="bmw">宝马 X5 (粤A 12345)</option>
+                                <option value="benz">奔驰 E300L (粤B 54321)</option>
+                                <option value="tesla">特斯拉 Model Y (粤C 98765)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="vehicle-display">
+                            <div class="vehicle-image">
+                                <div class="car-icon">&#128664;</div>
+                            </div>
+                            
+                            <div class="door-status-display">
+                                <div class="status-label">车门状态</div>
+                                <div id="doorStatus" class="door-status">已锁定</div>
+                                <div id="autoLockInfo" class="auto-lock-info"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-buttons">
+                            <button id="toggleDoor" class="control-btn primary door-btn" disabled>
+                                <span class="btn-icon">&#128274;</span>
+                                <span>解锁车门</span>
+                            </button>
+                            <button id="trunk" class="control-btn secondary" disabled>
+                                <span class="btn-icon">&#128065;</span>
+                                <span>打开后备箱</span>
+                            </button>
+                            <button id="engine" class="control-btn secondary" disabled>
+                                <span class="btn-icon">&#128295;</span>
+                                <span>启动引擎</span>
+                            </button>
+                            <button id="acControl" class="control-btn secondary" disabled>
+                                <span class="btn-icon">&#10052;</span>
+                                <span>空调控制</span>
+                            </button>
+                        </div>
+                        
+                        <div class="available-commands">
+                            <h4>可用语音指令</h4>
+                            <div class="command-grid">
+                                <div class="command-item">
+                                    <span class="command-keyword">开启车门</span>
+                                    <span class="command-description">解锁车门</span>
+                                </div>
+                                <div class="command-item">
+                                    <span class="command-keyword">打开后备箱</span>
+                                    <span class="command-description">开启车辆后备箱</span>
+                                </div>
+                                <div class="command-item">
+                                    <span class="command-keyword">启动引擎</span>
+                                    <span class="command-description">远程启动车辆引擎</span>
+                                </div>
+                                <div class="command-item">
+                                    <span class="command-keyword">调整空调</span>
+                                    <span class="command-description">控制车内温度</span>
+                                </div>
+                                <div class="command-item">
+                                    <span class="command-keyword">导航回家</span>
+                                    <span class="command-description">设置导航目的地为家</span>
+                                </div>
+                                <div class="command-item">
+                                    <span class="command-keyword">打开天窗</span>
+                                    <span class="command-description">控制车辆天窗</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box warning">
+                            <div class="info-icon">&#9888;</div>
+                            <p>出于安全考虑，车辆将在解锁10秒后自动锁定。如需更改此设置，请前往设置页面。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="dashboard-footer">
+                <p>&copy; 2023 SmartVoice Security Technologies</p>
+                <p>DeepSeek AI 增强版 | 版本 3.2.1</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../js/audio-recorder.js"></script>
+    <script src="../js/deepseek-api.js"></script>
+    <script src="../js/voiceprint.js"></script>
+    <script src="../js/verify.js"></script>
+</body>
+</html> 
