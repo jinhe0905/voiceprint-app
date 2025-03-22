@@ -2,11 +2,157 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=login.html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>声纹通 - 智能声纹车门解锁系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>声纹通 - 智能车门解锁系统</title>
+    
+    <!-- PWA相关元数据 -->
+    <meta name="theme-color" content="#4fbea0">
+    <meta name="description" content="使用声纹识别技术的智能车门解锁系统">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="声纹通">
+    
+    <!-- 图标 -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/icons/icon-32x32.png">
+    <link rel="apple-touch-icon" href="./img/icons/icon-192x192.png">
+    <link rel="manifest" href="./manifest.json">
+    
+    <!-- 样式 -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        
+        .loading-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .app-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #4fbea0;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(79, 190, 159, 0.3);
+            border-radius: 50%;
+            border-top-color: #4fbea0;
+            animation: spin 1s ease-in-out infinite;
+            margin: 1rem 0;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .app-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .app-slogan {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background-color: rgba(79, 190, 159, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .install-button {
+            background-color: white;
+            color: #4fbea0;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <p>如果没有自动跳转，请<a href="login.html">点击这里</a>访问登录页面。</p>
+    <div class="loading-screen">
+        <div class="app-logo">
+            <i class="bi bi-soundwave"></i>
+        </div>
+        <div class="loading-spinner"></div>
+        <div class="app-name">声纹通</div>
+        <div class="app-slogan">智能声纹车门解锁系统</div>
+    </div>
+    
+    <div class="install-prompt" id="installPrompt">
+        <div>将"声纹通"添加到主屏幕以获得更好的体验</div>
+        <button class="install-button" id="installButton">安装</button>
+    </div>
+
+    <script>
+        // 注册Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('Service Worker注册成功:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker注册失败:', error);
+                    });
+            });
+        }
+        
+        // 延迟一段时间后重定向到登录页
+        setTimeout(() => {
+            window.location.href = './login.html';
+        }, 2000);
+        
+        // PWA安装提示
+        let deferredPrompt;
+        const installPrompt = document.getElementById('installPrompt');
+        const installButton = document.getElementById('installButton');
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installPrompt.style.display = 'flex';
+        });
+        
+        installButton.addEventListener('click', () => {
+            installPrompt.style.display = 'none';
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('用户接受安装应用');
+                }
+                deferredPrompt = null;
+            });
+        });
+    </script>
 </body>
 </html> 

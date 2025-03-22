@@ -1,0 +1,418 @@
+/* 移动设备样式优化 */
+
+/* 通用移动设备样式 */
+.mobile-device {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/* 触摸反馈 */
+.touch-active {
+    opacity: 0.7;
+    transform: scale(0.98);
+}
+
+/* 添加页面过渡动画 */
+.page-exit {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-enter {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* PWA独立模式样式 */
+@media (display-mode: standalone) {
+    body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+}
+
+/* 移动设备断点 */
+@media (max-width: 767px) {
+    /* 通用样式 */
+    body {
+        font-size: 16px;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+    
+    /* 按钮增大点击区域 */
+    button, 
+    .btn, 
+    [role="button"] {
+        min-height: 44px;
+        padding: 12px 20px;
+    }
+    
+    /* 输入框优化 */
+    input, 
+    select, 
+    textarea {
+        min-height: 44px;
+        font-size: 16px; /* 防止iOS缩放 */
+    }
+    
+    /* 弹出层全屏 */
+    .modal-content {
+        border-radius: 0;
+        min-height: 100vh;
+    }
+    
+    /* 卡片调整 */
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    /* 表格滚动 */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* 字体大小调整 */
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* 导航栏调整 */
+    .navbar {
+        padding: 10px 15px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    /* 侧边栏调整 */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        width: 80%;
+        max-width: 280px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.collapsed {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar:not(.collapsed) {
+        transform: translateX(0);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* 主内容区调整 */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    /* 登录页面优化 */
+    .login-container {
+        flex-direction: column;
+    }
+    
+    .login-left,
+    .login-right {
+        width: 100%;
+    }
+    
+    .login-left {
+        display: none;
+    }
+    
+    /* 登录页面减少内容 */
+    .login-app-info {
+        display: none;
+    }
+    
+    .login-showcase {
+        max-height: 200px;
+    }
+    
+    /* 仪表盘调整 */
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    /* 声纹验证页面 */
+    .voice-verify-container {
+        flex-direction: column;
+    }
+    
+    .voice-panels {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .voice-tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .voice-tab {
+        flex: 0 0 auto;
+        padding: 10px 15px;
+    }
+    
+    .voice-visual {
+        height: 200px;
+    }
+    
+    .door-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .door-control {
+        flex: 0 0 50%;
+    }
+    
+    /* 用户页面 */
+    .profile-container {
+        flex-direction: column;
+    }
+    
+    .profile-sidebar {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .profile-main {
+        width: 100%;
+    }
+    
+    .profile-data {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Toast与通知 */
+    .notification {
+        width: calc(100% - 30px);
+        max-width: none;
+        left: 15px;
+        right: 15px;
+    }
+}
+
+/* iOS设备特定样式 */
+.ios-device {
+    /* 阻止iOS滑动橡皮筋效果 */
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.ios-device .app-container {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Android设备特定样式 */
+.android-device .ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.android-device .ripple:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+}
+
+.android-device .ripple:active:after {
+    transform: scale(0, 0);
+    opacity: .3;
+    transition: 0s;
+}
+
+/* 安装提示 */
+.pwa-install-prompt {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 15px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.pwa-install-prompt.visible {
+    transform: translateY(0);
+}
+
+.pwa-install-prompt-content {
+    flex: 1;
+}
+
+.pwa-install-prompt-title {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.pwa-install-prompt-desc {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.pwa-install-prompt-buttons {
+    display: flex;
+}
+
+.pwa-install-prompt-close,
+.pwa-install-prompt-install {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.pwa-install-prompt-close {
+    background: #eee;
+    color: #333;
+}
+
+.pwa-install-prompt-install {
+    background: #4fbea0;
+    color: white;
+}
+
+/* 离线状态指示器 */
+.offline-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f0ad4e;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 9999;
+    display: none;
+}
+
+.offline-indicator.visible {
+    display: block;
+    animation: fadeInUp 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* 应用加载屏幕 */
+.app-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.app-loading-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.app-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(79, 190, 160, 0.2);
+    border-radius: 50%;
+    border-top-color: #4fbea0;
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 20px;
+}
+
+.app-loading-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4fbea0;
+    margin-bottom: 10px;
+}
+
+.app-loading-subtext {
+    font-size: 14px;
+    color: #888;
+} 

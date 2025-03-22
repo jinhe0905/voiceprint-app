@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initPageElements();
     
     // 初始化选项卡切换
-    initTabs();
+    initTabSwitching();
     
     // 初始化登录表单提交
     initLoginForm();
@@ -56,30 +56,42 @@ function initPageElements() {
         showcaseCard: document.querySelector('.showcase-card'),
         techIndicators: document.querySelector('.tech-indicators')
     };
+
+    // 密码显示/隐藏切换
+    const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+    
+    togglePasswordButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+            
+            this.classList.toggle('bi-eye');
+            this.classList.toggle('bi-eye-slash');
+        });
+    });
 }
 
 // 初始化选项卡切换
-function initTabs() {
+function initTabSwitching() {
     const tabs = document.querySelectorAll('.login-tab');
+    const forms = document.querySelectorAll('.login-form');
     
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
-            // 移除所有选项卡的活动状态
-            tabs.forEach(t => t.classList.remove('active'));
+            const target = this.getAttribute('data-tab');
             
-            // 添加当前选项卡的活动状态
+            // 切换标签激活状态
+            tabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
             
-            // 获取目标表单
-            const targetForm = this.dataset.target;
-            
-            // 隐藏所有表单
-            document.querySelectorAll('.login-form').forEach(form => {
+            // 切换表单显示
+            forms.forEach(form => {
                 form.classList.remove('active');
+                if (form.id === `${target}-form`) {
+                    form.classList.add('active');
+                }
             });
-            
-            // 显示目标表单
-            document.getElementById(targetForm).classList.add('active');
         });
     });
 }
