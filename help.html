@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帮助中心 - 智能声纹识别系统</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/help.css">
+    <link rel="stylesheet" href="css/clean-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="bi bi-soundwave"></i>
+                    <span>声纹通<span class="premium-badge">PRO</span></span>
+                </div>
+                <button id="menuToggle" class="menu-toggle">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="bi bi-speedometer2"></i> <span>仪表盘</span></a></li>
+                    <li><a href="verify.html"><i class="bi bi-shield-check"></i> <span>声纹验证</span></a></li>
+                    <li><a href="profile.html"><i class="bi bi-person-circle"></i> <span>个人资料</span></a></li>
+                    <li><a href="vehicles.html"><i class="bi bi-car-front"></i> <span>我的车辆</span></a></li>
+                    <li><a href="history.html"><i class="bi bi-clock-history"></i> <span>使用记录</span></a></li>
+                    <li><a href="settings.html"><i class="bi bi-gear"></i> <span>设置</span></a></li>
+                    <li class="active"><a href="help.html"><i class="bi bi-question-circle"></i> <span>帮助</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn"><i class="bi bi-box-arrow-left"></i> <span>退出登录</span></a>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>帮助中心 <span class="ai-badge">DeepSeek AI</span></h1>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-info">
+                        <img src="img/avatar.jpg" alt="用户头像" class="avatar">
+                        <span class="username">李明</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="help-content">
+                <!-- 帮助页面导航 -->
+                <div class="help-navigation">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="搜索帮助内容...">
+                        <button class="search-btn"><i class="bi bi-search"></i></button>
+                    </div>
+                    <div class="nav-sections">
+                        <a href="#getting-started" class="nav-item active">
+                            <i class="bi bi-rocket-takeoff"></i>
+                            <span>入门指南</span>
+                        </a>
+                        <a href="#voice-verification" class="nav-item">
+                            <i class="bi bi-shield-check"></i>
+                            <span>声纹验证</span>
+                        </a>
+                        <a href="#vehicle-management" class="nav-item">
+                            <i class="bi bi-car-front"></i>
+                            <span>车辆管理</span>
+                        </a>
+                        <a href="#account-security" class="nav-item">
+                            <i class="bi bi-lock"></i>
+                            <span>账户安全</span>
+                        </a>
+                        <a href="#troubleshooting" class="nav-item">
+                            <i class="bi bi-tools"></i>
+                            <span>问题排查</span>
+                        </a>
+                        <a href="#faq" class="nav-item">
+                            <i class="bi bi-question-circle"></i>
+                            <span>常见问题</span>
+                        </a>
+                        <a href="#contact-support" class="nav-item">
+                            <i class="bi bi-headset"></i>
+                            <span>联系客服</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 帮助内容区域 -->
+                <div class="help-main">
+                    <!-- 入门指南 -->
+                    <section id="getting-started" class="help-section">
+                        <div class="section-header">
+                            <h2><i class="bi bi-rocket-takeoff"></i> 入门指南</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="welcome-message">
+                                <h3>欢迎使用声纹通专业版</h3>
+                                <p>声纹通专业版是一款高级声纹识别系统，专为车辆远程控制和安全管理设计。通过生物特征识别技术，您可以安全便捷地控制您的车辆，无需传统钥匙或密码。</p>
+                            </div>
+                            
+                            <div class="quick-start">
+                                <h3>快速开始</h3>
+                                <ol class="step-list">
+                                    <li>
+                                        <div class="step-number">1</div>
+                                        <div class="step-content">
+                                            <h4>注册账户</h4>
+                                            <p>首次使用需要创建账户并完成身份验证。您需要提供个人信息和手机号码进行验证。</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="step-number">2</div>
+                                        <div class="step-content">
+                                            <h4>录制声纹</h4>
+                                            <p>按照系统提示录制您的声纹样本。为了获得最佳效果，请在安静环境中清晰朗读指定文本。</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="step-number">3</div>
+                                        <div class="step-content">
+                                            <h4>添加车辆</h4>
+                                            <p>在"我的车辆"页面添加您的车辆信息，并按照指引完成配对流程。</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="step-number">4</div>
+                                        <div class="step-content">
+                                            <h4>开始使用</h4>
+                                            <p>完成以上步骤后，您可以通过声纹验证控制您的车辆，包括解锁/锁定车门、开启后备箱等操作。</p>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                            
+                            <div class="help-card">
+                                <div class="card-icon"><i class="bi bi-lightbulb"></i></div>
+                                <div class="card-content">
+                                    <h4>提示</h4>
+                                    <p>为了获得最佳声纹识别效果，建议在不同环境下录制多个声纹样本，并定期更新您的声纹模板。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- 声纹验证 -->
+                    <section id="voice-verification" class="help-section">
+                        <div class="section-header">
+                            <h2><i class="bi bi-shield-check"></i> 声纹验证</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="intro-text">
+                                <p>声纹验证是本系统的核心功能，通过分析您声音的独特特征来验证您的身份。以下是关于声纹验证的详细指南。</p>
+                            </div>
+                            
+                            <div class="feature-grid">
+                                <div class="feature-card">
+                                    <div class="feature-icon"><i class="bi bi-mic"></i></div>
+                                    <h4>录制声纹</h4>
+                                    <p>系统会引导您朗读特定文本进行声纹录制。建议在安静环境中，使用清晰、自然的语调进行录制。</p>
+                                </div>
+                                
+                                <div class="feature-card">
+                                    <div class="feature-icon"><i class="bi bi-shield-lock"></i></div>
+                                    <h4>活体检测</h4>
+                                    <p>系统采用先进的活体检测技术，能够识别录音回放，确保只有真人声音才能通过验证。</p>
+                                </div>
+                                
+                                <div class="feature-card">
+                                    <div class="feature-icon"><i class="bi bi-graph-up"></i></div>
+                                    <h4>声纹质量</h4>
+                                    <p>系统会评估您的声纹质量，包括清晰度、稳定性和独特性，并提供改善建议。</p>
+                                </div>
+                                
+                                <div class="feature-card">
+                                    <div class="feature-icon"><i class="bi bi-arrow-repeat"></i></div>
+                                    <h4>更新声纹</h4>
+                                    <p>建议每3-6个月更新一次声纹样本，以适应您声音的自然变化，保持识别准确性。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h4>声纹验证流程</h4>
+                                <ol>
+                                    <li>进入"声纹验证"页面，点击"开始录音"按钮。</li>
+                                    <li>按照屏幕提示朗读验证文本（例如"智能声纹，安全出行"）。</li>
+                                    <li>完成录音后，点击"停止录音"按钮。</li>
+                                    <li>点击"验证身份"按钮，系统将分析您的声纹。</li>
+                                    <li>验证通过后，您可以执行车辆控制操作。</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="help-card warning">
+                                <div class="card-icon"><i class="bi bi-exclamation-triangle"></i></div>
+                                <div class="card-content">
+                                    <h4>注意事项</h4>
+                                    <p>连续多次验证失败可能导致账户临时锁定。如遇此情况，请等待30分钟后再试，或联系客服解锁。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- 常见问题 -->
+                    <section id="faq" class="help-section">
+                        <div class="section-header">
+                            <h2><i class="bi bi-question-circle"></i> 常见问题</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="accordion">
+                                <div class="accordion-item">
+                                    <div class="accordion-header">
+                                        <h4>声纹验证的安全性如何？</h4>
+                                        <i class="bi bi-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p>声纹通专业版采用多层安全保障机制：</p>
+                                        <ul>
+                                            <li>声纹数据采用256位加密存储，确保数据安全</li>
+                                            <li>DeepSeek AI活体检测技术能有效识别录音回放攻击</li>
+                                            <li>支持多因素认证，可结合密码或生物识别提高安全性</li>
+                                            <li>异常登录检测系统，可识别可疑登录尝试</li>
+                                        </ul>
+                                        <p>这些措施综合提供了极高的安全保障，远超传统密码验证方式。</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <div class="accordion-header">
+                                        <h4>如何提高声纹识别的准确率？</h4>
+                                        <i class="bi bi-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p>提高声纹识别准确率的建议：</p>
+                                        <ul>
+                                            <li>在安静环境中录制声纹样本</li>
+                                            <li>使用相同的设备和麦克风距离</li>
+                                            <li>保持语音清晰，不要过快或过慢</li>
+                                            <li>录制多个声纹样本以增加识别准确性</li>
+                                            <li>定期更新声纹模板以适应声音变化</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <div class="accordion-header">
+                                        <h4>我的声音因感冒而变化，会影响识别吗？</h4>
+                                        <i class="bi bi-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p>感冒等暂时性声音变化可能会影响声纹识别的准确性。在这种情况下，您可以：</p>
+                                        <ul>
+                                            <li>尝试多次验证，系统会自动调整容错率</li>
+                                            <li>使用备用验证方式（如密码验证）</li>
+                                            <li>待声音恢复后再次尝试验证</li>
+                                            <li>恢复后更新您的声纹样本</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <div class="accordion-header">
+                                        <h4>如何添加多个用户使用同一辆车？</h4>
+                                        <i class="bi bi-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p>声纹通专业版支持多用户访问同一辆车：</p>
+                                        <ol>
+                                            <li>在"我的车辆"页面选择目标车辆</li>
+                                            <li>点击"安全与访问"选项卡</li>
+                                            <li>选择"添加授权用户"</li>
+                                            <li>输入受邀用户的邮箱或手机号</li>
+                                            <li>设置用户权限级别（例如完全访问、仅解锁等）</li>
+                                            <li>受邀用户将收到邀请，接受后需完成声纹录制</li>
+                                        </ol>
+                                        <p>每辆车最多可添加5个授权用户。</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <div class="accordion-header">
+                                        <h4>车辆远程控制有距离限制吗？</h4>
+                                        <i class="bi bi-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p>声纹通专业版通过互联网实现远程控制，因此理论上没有距离限制。但需要注意：</p>
+                                        <ul>
+                                            <li>您的手机需要有稳定的网络连接</li>
+                                            <li>车辆需要在有网络覆盖的区域</li>
+                                            <li>车辆智能模块需要保持正常工作状态</li>
+                                        </ul>
+                                        <p>在网络信号弱或无网络区域，可能会出现延迟或无法连接的情况。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- 联系客服 -->
+                    <section id="contact-support" class="help-section">
+                        <div class="section-header">
+                            <h2><i class="bi bi-headset"></i> 联系客服</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="contact-info">
+                                <p>如果您在使用过程中遇到任何问题，请通过以下方式联系我们的客服团队：</p>
+                                
+                                <div class="contact-methods">
+                                    <div class="contact-card">
+                                        <div class="contact-icon">
+                                            <i class="bi bi-telephone"></i>
+                                        </div>
+                                        <div class="contact-details">
+                                            <h4>电话支持</h4>
+                                            <p>400-888-9999</p>
+                                            <p class="note">工作时间：周一至周日 9:00-21:00</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="contact-card">
+                                        <div class="contact-icon">
+                                            <i class="bi bi-envelope"></i>
+                                        </div>
+                                        <div class="contact-details">
+                                            <h4>邮件支持</h4>
+                                            <p>support@voiceprint.com</p>
+                                            <p class="note">通常在24小时内回复</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="contact-card">
+                                        <div class="contact-icon">
+                                            <i class="bi bi-chat-dots"></i>
+                                        </div>
+                                        <div class="contact-details">
+                                            <h4>在线客服</h4>
+                                            <button class="chat-btn">开始聊天</button>
+                                            <p class="note">工作时间：周一至周日 9:00-21:00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="feedback-form">
+                                <h3>反馈表单</h3>
+                                <form id="support-form">
+                                    <div class="form-group">
+                                        <label for="issue-type">问题类型</label>
+                                        <select id="issue-type" class="form-control">
+                                            <option value="">请选择问题类型</option>
+                                            <option value="account">账户问题</option>
+                                            <option value="verification">声纹验证问题</option>
+                                            <option value="vehicle">车辆控制问题</option>
+                                            <option value="app">应用程序问题</option>
+                                            <option value="suggestion">功能建议</option>
+                                            <option value="other">其他问题</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="issue-description">问题描述</label>
+                                        <textarea id="issue-description" class="form-control" rows="5" placeholder="请详细描述您遇到的问题..."></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="contact-email">联系邮箱</label>
+                                        <input type="email" id="contact-email" class="form-control" placeholder="请输入您的邮箱地址">
+                                    </div>
+                                    
+                                    <div class="form-actions">
+                                        <button type="submit" class="submit-btn">提交反馈</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 自定义JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化侧边栏折叠功能
+            const menuToggle = document.getElementById('menuToggle');
+            const appContainer = document.querySelector('.app-container');
+            
+            if (menuToggle && appContainer) {
+                menuToggle.addEventListener('click', function() {
+                    appContainer.classList.toggle('sidebar-collapsed');
+                });
+            }
+            
+            // 初始化帮助导航
+            const navItems = document.querySelectorAll('.nav-item');
+            const helpSections = document.querySelectorAll('.help-section');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有活动状态
+                    navItems.forEach(navItem => navItem.classList.remove('active'));
+                    
+                    // 添加当前项目的活动状态
+                    this.classList.add('active');
+                    
+                    // 获取目标部分
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    // 滚动到目标部分
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+            
+            // 初始化手风琴
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                
+                header.addEventListener('click', function() {
+                    // 切换当前项目的活动状态
+                    item.classList.toggle('active');
+                    
+                    // 设置内容高度
+                    if (item.classList.contains('active')) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    } else {
+                        content.style.maxHeight = '0';
+                    }
+                });
+            });
+            
+            // 初始化搜索功能
+            const searchInput = document.querySelector('.search-input');
+            const searchBtn = document.querySelector('.search-btn');
+            
+            if (searchInput && searchBtn) {
+                searchBtn.addEventListener('click', function() {
+                    performSearch(searchInput.value);
+                });
+                
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch(searchInput.value);
+                    }
+                });
+            }
+            
+            // 搜索功能
+            function performSearch(query) {
+                if (!query.trim()) return;
+                
+                // 清除现有高亮
+                clearHighlights();
+                
+                const searchRegex = new RegExp(query, 'gi');
+                const sectionContents = document.querySelectorAll('.section-content');
+                
+                let matchFound = false;
+                let firstMatchSection = null;
+                
+                sectionContents.forEach(section => {
+                    const textNodes = getTextNodes(section);
+                    
+                    textNodes.forEach(node => {
+                        const text = node.nodeValue;
+                        if (searchRegex.test(text)) {
+                            matchFound = true;
+                            
+                            // 找到第一个匹配的部分
+                            if (!firstMatchSection) {
+                                firstMatchSection = section.closest('.help-section');
+                            }
+                            
+                            // 高亮匹配文本
+                            const highlightedText = text.replace(searchRegex, match => `<span class="highlight">${match}</span>`);
+                            const replacementNode = document.createElement('span');
+                            replacementNode.innerHTML = highlightedText;
+                            node.parentNode.replaceChild(replacementNode, node);
+                        }
+                    });
+                });
+                
+                // 滚动到第一个匹配的部分
+                if (firstMatchSection) {
+                    firstMatchSection.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // 激活对应的导航项
+                    const sectionId = firstMatchSection.getAttribute('id');
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === `#${sectionId}`) {
+                            item.classList.add('active');
+                        }
+                    });
+                } else {
+                    alert('未找到匹配内容');
+                }
+            }
+            
+            // 获取所有文本节点
+            function getTextNodes(element) {
+                const textNodes = [];
+                
+                function getNodes(node) {
+                    if (node.nodeType === 3) {
+                        textNodes.push(node);
+                    } else if (node.nodeType === 1) {
+                        for (let i = 0; i < node.childNodes.length; i++) {
+                            getNodes(node.childNodes[i]);
+                        }
+                    }
+                }
+                
+                getNodes(element);
+                return textNodes;
+            }
+            
+            // 清除高亮
+            function clearHighlights() {
+                const highlights = document.querySelectorAll('.highlight');
+                
+                highlights.forEach(highlight => {
+                    const parent = highlight.parentNode;
+                    parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+                    parent.normalize();
+                });
+            }
+            
+            // 初始化表单提交
+            const supportForm = document.getElementById('support-form');
+            
+            if (supportForm) {
+                supportForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const issueType = document.getElementById('issue-type').value;
+                    const description = document.getElementById('issue-description').value;
+                    const email = document.getElementById('contact-email').value;
+                    
+                    if (!issueType || !description || !email) {
+                        alert('请填写所有必填字段');
+                        return;
+                    }
+                    
+                    // 模拟表单提交
+                    alert('感谢您的反馈！我们将尽快处理您的问题。');
+                    
+                    // 重置表单
+                    supportForm.reset();
+                });
+            }
+            
+            // 初始化聊天按钮
+            const chatBtn = document.querySelector('.chat-btn');
+            
+            if (chatBtn) {
+                chatBtn.addEventListener('click', function() {
+                    alert('聊天功能将在下一版本推出');
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

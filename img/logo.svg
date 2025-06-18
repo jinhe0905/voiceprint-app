@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- 背景圆形 - 使用渐变 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0050b3" />
+      <stop offset="100%" stop-color="#002766" />
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="90" fill="url(#bgGradient)" />
+  
+  <!-- 声波图案 - 使用更平滑的曲线 -->
+  <path d="M100,40 v120" stroke="#1890ff" stroke-width="6" stroke-linecap="round" />
+  <path d="M75,60 v80" stroke="#1890ff" stroke-width="6" stroke-linecap="round" />
+  <path d="M50,75 v50" stroke="#1890ff" stroke-width="6" stroke-linecap="round" />
+  <path d="M125,60 v80" stroke="#1890ff" stroke-width="6" stroke-linecap="round" />
+  <path d="M150,75 v50" stroke="#1890ff" stroke-width="6" stroke-linecap="round" />
+  
+  <!-- 中心圆形 -->
+  <circle cx="100" cy="100" r="20" fill="#1890ff" />
+  
+  <!-- 专业标识 -->
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">PROFESSIONAL</text>
+</svg> 

@@ -1,0 +1,600 @@
+/* 帮助页面样式 */
+
+.help-content {
+    display: flex;
+    gap: 32px;
+    padding-bottom: 32px;
+}
+
+/* 导航侧边栏 */
+.help-navigation {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+.search-container {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+    background-color: #fff;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #1890ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.search-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #8c8c8c;
+    cursor: pointer;
+    padding: 0;
+    font-size: 16px;
+}
+
+.search-btn:hover {
+    color: #1890ff;
+}
+
+.nav-sections {
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e8e8e8;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    color: #595959;
+    text-decoration: none;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s;
+}
+
+.nav-item:last-child {
+    border-bottom: none;
+}
+
+.nav-item i {
+    font-size: 18px;
+    margin-right: 12px;
+    color: #8c8c8c;
+}
+
+.nav-item:hover {
+    background-color: #f9f9f9;
+    color: #262626;
+}
+
+.nav-item.active {
+    background-color: rgba(24, 144, 255, 0.05);
+    color: #1890ff;
+    border-left: 3px solid #1890ff;
+}
+
+.nav-item.active i {
+    color: #1890ff;
+}
+
+/* 主要内容区域 */
+.help-main {
+    flex: 1;
+}
+
+.help-section {
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e8e8e8;
+    margin-bottom: 32px;
+}
+
+.help-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.section-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.section-header h2 i {
+    margin-right: 12px;
+    color: #1890ff;
+    font-size: 22px;
+}
+
+.section-content {
+    padding: 24px;
+}
+
+/* 入门指南样式 */
+.welcome-message {
+    margin-bottom: 32px;
+}
+
+.welcome-message h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 16px;
+}
+
+.welcome-message p {
+    font-size: 15px;
+    color: #595959;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.quick-start h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 20px;
+}
+
+.step-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+}
+
+.step-list li {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.step-list li:last-child {
+    margin-bottom: 0;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    background-color: #1890ff;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 8px;
+}
+
+.step-content p {
+    font-size: 14px;
+    color: #595959;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.help-card {
+    display: flex;
+    align-items: flex-start;
+    background-color: rgba(24, 144, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 24px;
+}
+
+.help-card.warning {
+    background-color: rgba(250, 173, 20, 0.05);
+}
+
+.card-icon {
+    width: 32px;
+    height: 32px;
+    background-color: rgba(24, 144, 255, 0.1);
+    color: #1890ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.help-card.warning .card-icon {
+    background-color: rgba(250, 173, 20, 0.1);
+    color: #faad14;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.card-content h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 8px;
+}
+
+.card-content p {
+    font-size: 14px;
+    color: #595959;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 功能网格 */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin: 24px 0;
+}
+
+.feature-card {
+    background-color: #fafafa;
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s;
+}
+
+.feature-card:hover {
+    background-color: #f0f0f0;
+}
+
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    background-color: rgba(24, 144, 255, 0.1);
+    color: #1890ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+
+.feature-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 8px;
+}
+
+.feature-card p {
+    font-size: 14px;
+    color: #595959;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 信息框 */
+.info-box {
+    background-color: #fafafa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+}
+
+.info-box h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 16px;
+}
+
+.info-box ol, .info-box ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.info-box li {
+    font-size: 14px;
+    color: #595959;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.info-box li:last-child {
+    margin-bottom: 0;
+}
+
+/* 手风琴 */
+.accordion {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.accordion-item {
+    background-color: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.accordion-item:last-child {
+    margin-bottom: 0;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    background-color: #fafafa;
+    transition: all 0.3s;
+}
+
+.accordion-item.active .accordion-header {
+    background-color: rgba(24, 144, 255, 0.05);
+}
+
+.accordion-header h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0;
+}
+
+.accordion-header i {
+    font-size: 16px;
+    color: #8c8c8c;
+    transition: all 0.3s;
+}
+
+.accordion-item.active .accordion-header i {
+    transform: rotate(180deg);
+    color: #1890ff;
+}
+
+.accordion-content {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-item.active .accordion-content {
+    padding: 16px 20px;
+}
+
+.accordion-content p {
+    font-size: 14px;
+    color: #595959;
+    line-height: 1.6;
+    margin: 0 0 16px;
+}
+
+.accordion-content p:last-child {
+    margin-bottom: 0;
+}
+
+.accordion-content ul, .accordion-content ol {
+    margin: 0 0 16px;
+    padding-left: 20px;
+}
+
+.accordion-content li {
+    font-size: 14px;
+    color: #595959;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.accordion-content li:last-child {
+    margin-bottom: 0;
+}
+
+/* 联系方式 */
+.contact-info {
+    margin-bottom: 32px;
+}
+
+.contact-info > p {
+    font-size: 15px;
+    color: #595959;
+    line-height: 1.6;
+    margin: 0 0 24px;
+}
+
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.contact-card {
+    background-color: #fafafa;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.contact-card:hover {
+    background-color: #f0f0f0;
+}
+
+.contact-icon {
+    width: 64px;
+    height: 64px;
+    background-color: rgba(24, 144, 255, 0.1);
+    color: #1890ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 28px;
+}
+
+.contact-details h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 8px;
+}
+
+.contact-details p {
+    font-size: 14px;
+    color: #262626;
+    margin: 0 0 8px;
+}
+
+.contact-details p.note {
+    font-size: 12px;
+    color: #8c8c8c;
+    margin: 0;
+}
+
+.chat-btn {
+    padding: 8px 16px;
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 8px;
+}
+
+.chat-btn:hover {
+    background-color: #096dd9;
+}
+
+/* 反馈表单 */
+.feedback-form {
+    background-color: #fafafa;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.feedback-form h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #262626;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #262626;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #1890ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submit-btn {
+    padding: 12px 24px;
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #096dd9;
+}
+
+/* 搜索结果高亮 */
+.highlight {
+    background-color: rgba(250, 173, 20, 0.3);
+    padding: 2px 0;
+    border-radius: 2px;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .help-content {
+        flex-direction: column;
+    }
+    
+    .help-navigation {
+        width: 100%;
+        margin-bottom: 24px;
+    }
+    
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-methods {
+        grid-template-columns: 1fr;
+    }
+} 

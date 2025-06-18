@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用记录 - 智能声纹识别系统</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/history.css">
+    <link rel="stylesheet" href="css/clean-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="bi bi-soundwave"></i>
+                    <span>声纹通<span class="premium-badge">PRO</span></span>
+                </div>
+                <button id="menuToggle" class="menu-toggle">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="bi bi-speedometer2"></i> <span>仪表盘</span></a></li>
+                    <li><a href="verify.html"><i class="bi bi-shield-check"></i> <span>声纹验证</span></a></li>
+                    <li><a href="profile.html"><i class="bi bi-person-circle"></i> <span>个人资料</span></a></li>
+                    <li><a href="vehicles.html"><i class="bi bi-car-front"></i> <span>我的车辆</span></a></li>
+                    <li class="active"><a href="history.html"><i class="bi bi-clock-history"></i> <span>使用记录</span></a></li>
+                    <li><a href="settings.html"><i class="bi bi-gear"></i> <span>设置</span></a></li>
+                    <li><a href="help.html"><i class="bi bi-question-circle"></i> <span>帮助</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn"><i class="bi bi-box-arrow-left"></i> <span>退出登录</span></a>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>使用记录 <span class="ai-badge">DeepSeek AI</span></h1>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-info">
+                        <img src="img/avatar.jpg" alt="用户头像" class="avatar">
+                        <span class="username">李明</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="history-content">
+                <!-- 筛选与搜索 -->
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label>时间范围</label>
+                            <div class="date-picker-group">
+                                <input type="date" class="date-input" value="2024-06-01">
+                                <span class="date-separator">至</span>
+                                <input type="date" class="date-input" value="2024-06-30">
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label>操作类型</label>
+                            <select class="filter-select">
+                                <option value="all">全部操作</option>
+                                <option value="unlock">车门解锁</option>
+                                <option value="lock">车门锁定</option>
+                                <option value="trunk">后备箱操作</option>
+                                <option value="login">系统登录</option>
+                                <option value="verification">声纹验证</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label>车辆</label>
+                            <select class="filter-select">
+                                <option value="all">全部车辆</option>
+                                <option value="lincoln">林肯领航员</option>
+                                <option value="bmw">宝马 X5</option>
+                                <option value="audi">奥迪 A6L</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label>状态</label>
+                            <select class="filter-select">
+                                <option value="all">全部状态</option>
+                                <option value="success">成功</option>
+                                <option value="failed">失败</option>
+                                <option value="pending">处理中</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-row">
+                        <div class="search-bar">
+                            <input type="text" placeholder="搜索操作记录..." class="search-input">
+                            <button class="search-btn"><i class="bi bi-search"></i></button>
+                        </div>
+                        
+                        <div class="filter-actions">
+                            <button class="filter-btn primary">应用筛选</button>
+                            <button class="filter-btn">重置</button>
+                            <button class="filter-btn"><i class="bi bi-download"></i> 导出</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 使用记录统计 -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i class="bi bi-activity"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">246</div>
+                            <div class="stat-label">总操作次数</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">238</div>
+                            <div class="stat-label">成功操作</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon danger">
+                            <i class="bi bi-x-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">失败操作</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">97%</div>
+                            <div class="stat-label">验证成功率</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作记录表格 -->
+                <div class="history-table-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="th-content">
+                                        <span>操作时间</span>
+                                        <i class="bi bi-arrow-down-short"></i>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-content">
+                                        <span>操作类型</span>
+                                        <i class="bi bi-filter"></i>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-content">
+                                        <span>车辆</span>
+                                        <i class="bi bi-filter"></i>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-content">
+                                        <span>用户</span>
+                                        <i class="bi bi-filter"></i>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-content">
+                                        <span>位置</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-content">
+                                        <span>状态</span>
+                                        <i class="bi bi-filter"></i>
+                                    </div>
+                                </th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2024-06-30 09:15</td>
+                                <td>
+                                    <div class="operation-type unlock">
+                                        <i class="bi bi-unlock"></i> 车门解锁
+                                    </div>
+                                </td>
+                                <td>林肯领航员</td>
+                                <td>李明 (您)</td>
+                                <td>北京市海淀区</td>
+                                <td>
+                                    <span class="status-badge success">成功</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn details-btn"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2024-06-30 08:30</td>
+                                <td>
+                                    <div class="operation-type lock">
+                                        <i class="bi bi-lock"></i> 车门锁定
+                                    </div>
+                                </td>
+                                <td>林肯领航员</td>
+                                <td>系统</td>
+                                <td>北京市海淀区</td>
+                                <td>
+                                    <span class="status-badge success">成功</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn details-btn"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2024-06-29 18:45</td>
+                                <td>
+                                    <div class="operation-type trunk">
+                                        <i class="bi bi-box"></i> 后备箱开启
+                                    </div>
+                                </td>
+                                <td>林肯领航员</td>
+                                <td>李明 (您)</td>
+                                <td>北京市朝阳区</td>
+                                <td>
+                                    <span class="status-badge success">成功</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn details-btn"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2024-06-29 18:30</td>
+                                <td>
+                                    <div class="operation-type unlock">
+                                        <i class="bi bi-unlock"></i> 车门解锁
+                                    </div>
+                                </td>
+                                <td>林肯领航员</td>
+                                <td>李明 (您)</td>
+                                <td>北京市朝阳区</td>
+                                <td>
+                                    <span class="status-badge success">成功</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn details-btn"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2024-06-29 10:15</td>
+                                <td>
+                                    <div class="operation-type login">
+                                        <i class="bi bi-person-check"></i> 系统登录
+                                    </div>
+                                </td>
+                                <td>-</td>
+                                <td>李明 (您)</td>
+                                <td>北京市海淀区</td>
+                                <td>
+                                    <span class="status-badge success">成功</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn details-btn"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2024-06-28 19:20</td>
+                                <td>
+                                    <div class="operation-type verify">
+                                        <i class="bi bi-shield-check"></i> 声纹验证
+                                    </div>
+                                </td>
+                                <td>宝马 X5</td>
+                                <td>李明 (您)</td>
+                                <td>北京市海淀区</td>
+                                <td>
+                                    <span class="status-badge failed">失败</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn details-btn"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2024-06-28 15:45</td>
+                                <td>
+                                    <div class="operation-type unlock">
+                                        <i class="bi bi-unlock"></i> 车门解锁
+                                    </div>
+                                </td>
+                                <td>奥迪 A6L</td>
+                                <td>王小红</td>
+                                <td>北京市海淀区</td>
+                                <td>
+                                    <span class="status-badge success">成功</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn details-btn"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2024-06-28 08:20</td>
+                                <td>
+                                    <div class="operation-type lock">
+                                        <i class="bi bi-lock"></i> 车门锁定
+                                    </div>
+                                </td>
+                                <td>宝马 X5</td>
+                                <td>系统</td>
+                                <td>北京市朝阳区</td>
+                                <td>
+                                    <span class="status-badge success">成功</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn details-btn"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2024-06-27 22:15</td>
+                                <td>
+                                    <div class="operation-type verify">
+                                        <i class="bi bi-shield-check"></i> 声纹验证
+                                    </div>
+                                </td>
+                                <td>林肯领航员</td>
+                                <td>李明 (您)</td>
+                                <td>北京市朝阳区</td>
+                                <td>
+                                    <span class="status-badge success">成功</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn details-btn"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2024-06-27 21:50</td>
+                                <td>
+                                    <div class="operation-type unlock">
+                                        <i class="bi bi-unlock"></i> 车门解锁
+                                    </div>
+                                </td>
+                                <td>林肯领航员</td>
+                                <td>李明 (您)</td>
+                                <td>北京市朝阳区</td>
+                                <td>
+                                    <span class="status-badge success">成功</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn details-btn"><i class="bi bi-info-circle"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 分页控件 -->
+                <div class="pagination">
+                    <button class="pagination-btn" disabled><i class="bi bi-chevron-left"></i></button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <span class="pagination-separator">...</span>
+                    <button class="pagination-btn">20</button>
+                    <button class="pagination-btn"><i class="bi bi-chevron-right"></i></button>
+                    
+                    <div class="pagination-info">
+                        显示 1-10 条，共 246 条
+                    </div>
+                    
+                    <div class="pagination-size">
+                        <span>每页显示:</span>
+                        <select class="pagination-size-select">
+                            <option value="10" selected>10条</option>
+                            <option value="20">20条</option>
+                            <option value="50">50条</option>
+                            <option value="100">100条</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 操作详情弹窗 -->
+            <div class="modal" id="detailsModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>操作详情</h3>
+                        <button class="modal-close"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="details-grid">
+                            <div class="details-column">
+                                <div class="detail-group">
+                                    <h4>基本信息</h4>
+                                    <div class="detail-row">
+                                        <div class="detail-label">操作ID</div>
+                                        <div class="detail-value">OP2024063009150001</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">操作类型</div>
+                                        <div class="detail-value">车门解锁</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">操作时间</div>
+                                        <div class="detail-value">2024-06-30 09:15:23</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">操作用户</div>
+                                        <div class="detail-value">李明 (您)</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">用户角色</div>
+                                        <div class="detail-value">主要用户</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <h4>声纹验证信息</h4>
+                                    <div class="detail-row">
+                                        <div class="detail-label">验证结果</div>
+                                        <div class="detail-value success">通过</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">匹配度</div>
+                                        <div class="detail-value">96.8%</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">活体检测</div>
+                                        <div class="detail-value success">通过</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">验证口令</div>
+                                        <div class="detail-value">智能声纹，安全出行</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="details-column">
+                                <div class="detail-group">
+                                    <h4>车辆信息</h4>
+                                    <div class="detail-row">
+                                        <div class="detail-label">车辆</div>
+                                        <div class="detail-value">林肯领航员</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">车牌号</div>
+                                        <div class="detail-value">京A12345</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">位置</div>
+                                        <div class="detail-value">北京市海淀区中关村</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">GPS坐标</div>
+                                        <div class="detail-value">39.9836° N, 116.3229° E</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <h4>设备信息</h4>
+                                    <div class="detail-row">
+                                        <div class="detail-label">设备类型</div>
+                                        <div class="detail-value">移动设备</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">设备型号</div>
+                                        <div class="detail-value">iPhone 13</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">应用版本</div>
+                                        <div class="detail-value">声纹通 3.2.1</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">IP地址</div>
+                                        <div class="detail-value">192.168.1.100</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="audit-log">
+                            <h4>操作日志</h4>
+                            <div class="log-entries">
+                                <div class="log-entry">
+                                    <div class="log-time">09:15:23</div>
+                                    <div class="log-event">用户请求车门解锁操作</div>
+                                </div>
+                                <div class="log-entry">
+                                    <div class="log-time">09:15:24</div>
+                                    <div class="log-event">开始声纹验证</div>
+                                </div>
+                                <div class="log-entry">
+                                    <div class="log-time">09:15:28</div>
+                                    <div class="log-event">声纹验证成功 (匹配度: 96.8%)</div>
+                                </div>
+                                <div class="log-entry">
+                                    <div class="log-time">09:15:29</div>
+                                    <div class="log-event">发送解锁指令到车辆</div>
+                                </div>
+                                <div class="log-entry">
+                                    <div class="log-time">09:15:30</div>
+                                    <div class="log-event">车辆确认解锁完成</div>
+                                </div>
+                                <div class="log-entry">
+                                    <div class="log-time">09:15:31</div>
+                                    <div class="log-event">操作完成并记录到系统</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="modal-btn primary">导出详情</button>
+                        <button class="modal-btn close-btn">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 自定义JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化侧边栏折叠功能
+            const menuToggle = document.getElementById('menuToggle');
+            const appContainer = document.querySelector('.app-container');
+            
+            if (menuToggle && appContainer) {
+                menuToggle.addEventListener('click', function() {
+                    appContainer.classList.toggle('sidebar-collapsed');
+                });
+            }
+            
+            // 初始化操作详情弹窗
+            const modal = document.getElementById('detailsModal');
+            const detailsBtns = document.querySelectorAll('.details-btn');
+            const closeModal = document.querySelector('.modal-close');
+            const closeBtn = document.querySelector('.close-btn');
+            
+            detailsBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    modal.classList.add('active');
+                });
+            });
+            
+            if (closeModal) {
+                closeModal.addEventListener('click', function() {
+                    modal.classList.remove('active');
+                });
+            }
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    modal.classList.remove('active');
+                });
+            }
+            
+            // 点击模态框外部关闭模态框
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+            
+            // 初始化筛选按钮
+            const filterBtn = document.querySelector('.filter-btn.primary');
+            const resetBtn = document.querySelector('.filter-btn:not(.primary):not(:last-child)');
+            
+            if (filterBtn) {
+                filterBtn.addEventListener('click', function() {
+                    alert('筛选条件已应用');
+                });
+            }
+            
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    // 重置所有筛选条件
+                    document.querySelectorAll('.filter-select').forEach(select => {
+                        select.value = 'all';
+                    });
+                    
+                    document.querySelectorAll('.date-input').forEach((input, index) => {
+                        if (index === 0) {
+                            input.value = '2024-06-01';
+                        } else {
+                            input.value = '2024-06-30';
+                        }
+                    });
+                    
+                    document.querySelector('.search-input').value = '';
+                });
+            }
+            
+            // 初始化分页按钮
+            const pageBtns = document.querySelectorAll('.pagination-btn:not(:first-child):not(:last-child)');
+            
+            pageBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    pageBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

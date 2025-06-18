@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化侧边栏折叠功能
     initSidebar();
     
-    // 初始化音频可视化
-    initAudioVisualizer();
+    // 初始化音频波形显示
+    initWaveform();
 });
 
 // 初始化页面元素引用
@@ -42,6 +42,10 @@ function initPageElements() {
         voiceprintMatch: document.getElementById('voiceprint-match'),
         recognizedCommand: document.getElementById('recognized-command'),
         commandConfidence: document.getElementById('command-confidence'),
+        recordingTimer: document.getElementById('recording-timer'),
+        recordingIndicator: document.getElementById('recording-indicator'),
+        recordingText: document.querySelector('.recording-text'),
+        audioLevelBar: document.getElementById('audio-level-bar'),
         
         // 语音命令面板元素
         commandPanel: document.getElementById('command-panel'),
@@ -62,7 +66,8 @@ function initPageElements() {
         
         // 音频可视化元素
         visualizer: document.getElementById('visualizer'),
-        commandVisualizer: document.getElementById('command-visualizer')
+        commandVisualizer: document.getElementById('command-visualizer'),
+        audioWaveform: document.getElementById('audio-waveform')
     };
     
     // 初始化选项卡元素
@@ -93,14 +98,59 @@ function initTabs() {
 
 // 初始化声纹验证面板
 function initVoiceprintPanel() {
-    const { startRecording, stopRecording, verifyVoiceprint, statusMessage } = window.elements;
+    const { 
+        startRecording, stopRecording, verifyVoiceprint, 
+        statusMessage, visualizer, audioLevelBar 
+    } = window.elements;
     
-    // 声纹分析器实例
-    const voiceprintAnalyzer = new VoiceprintAnalyzer();
+    // 录音实例
+    const audioRecorder = new AudioRecorder(visualizer);
     
     // 录音状态
     let isRecording = false;
-    let recordedAudio = null;
+    let recordedAudioData = null;
+    
+    // 初始化录音设备
+    audioRecorder.init().then(() => {
+        console.log('录音设备初始化成功');
+        startRecording.disabled = false;
+        statusMessage.textContent = '录音设备已就绪，请点击"开始录音"按钮进行声纹验证。';
+    }).catch(error => {
+        console.error('录音设备初始化失败:', error);
+        statusMessage.textContent = '无法访问麦克风，请检查浏览器权限设置。';
+        startRecording.disabled = true;
+    });
+    
+    // 设置音频电平更新回调
+    audioRecorder.onAudioLevelUpdate = (level) => {
+        // 将0-1的电平值转换为百分比（0-100%）
+        const levelPercent = Math.min(Math.floor(level * 500), 100);
+        audioLevelBar.style.width = `${levelPercent}%`;
+        
+        // 根据电平值设置颜色
+        if (levelPercent < 30) {
+            audioLevelBar.style.backgroundColor = '#52c41a'; // 低电平 - 绿色
+        } else if (levelPercent < 70) {
+            audioLevelBar.style.backgroundColor = '#1890ff'; // 中电平 - 蓝色
+        } else {
+            audioLevelBar.style.backgroundColor = levelPercent > 85 ? '#cf1322' : '#faad14'; // 高电平 - 黄色/红色
+        }
+    };
+    
+    // 设置录音时间更新回调
+    audioRecorder.onRecordingTimeUpdate = (duration) => {
+        const seconds = Math.floor(duration / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        
+        // 更新录音计时器显示
+        window.elements.recordingTimer.textContent = `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    };
+    
+    // 设置最大录音时长回调
+    audioRecorder.onMaxDurationReached = () => {
+        statusMessage.textContent = '已达到最大录音时长，录音已自动停止。';
+    };
     
     // 开始录音按钮点击事件
     startRecording.addEventListener('click', function() {
@@ -108,8 +158,7 @@ function initVoiceprintPanel() {
         resetVoiceprintUI();
         
         // 开始录音
-        voiceprintAnalyzer.startRecording()
-            .then(() => {
+        if (audioRecorder.startRecording()) {
                 // 更新UI状态
                 isRecording = true;
                 startRecording.disabled = true;
@@ -117,13 +166,15 @@ function initVoiceprintPanel() {
                 verifyVoiceprint.disabled = true;
                 statusMessage.textContent = '正在录音，请朗读屏幕上的文字...';
                 
-                // 开始音频可视化
-                startVisualization(window.elements.visualizer);
-            })
-            .catch(error => {
-                console.error('录音启动失败:', error);
-                statusMessage.textContent = '无法启动录音: ' + error.message;
-            });
+            // 更新录音指示器
+            window.elements.recordingText.textContent = '正在录音';
+            document.querySelector('.recording-dot').classList.add('active');
+            
+            // 激活波形动画
+            activateWaveform();
+        } else {
+            statusMessage.textContent = '无法启动录音，请检查麦克风权限。';
+        }
     });
     
     // 停止录音按钮点击事件
@@ -131,10 +182,10 @@ function initVoiceprintPanel() {
         if (!isRecording) return;
         
         // 停止录音
-        voiceprintAnalyzer.stopRecording()
-            .then(audio => {
+        audioRecorder.stopRecording()
+            .then(audioData => {
                 // 保存录制的音频
-                recordedAudio = audio;
+                recordedAudioData = audioData;
                 
                 // 更新UI状态
                 isRecording = false;
@@ -143,8 +194,15 @@ function initVoiceprintPanel() {
                 verifyVoiceprint.disabled = false;
                 statusMessage.textContent = '录音已完成，请点击"验证身份"按钮进行验证。';
                 
-                // 停止音频可视化
-                stopVisualization(window.elements.visualizer);
+                // 更新录音指示器
+                window.elements.recordingText.textContent = '录音完成';
+                document.querySelector('.recording-dot').classList.remove('active');
+                
+                // 停止波形动画
+                deactivateWaveform();
+                
+                // 重置音频电平显示
+                audioLevelBar.style.width = '0%';
             })
             .catch(error => {
                 console.error('停止录音失败:', error);
@@ -154,7 +212,7 @@ function initVoiceprintPanel() {
     
     // 验证声纹按钮点击事件
     verifyVoiceprint.addEventListener('click', function() {
-        if (!recordedAudio) {
+        if (!recordedAudioData) {
             statusMessage.textContent = '没有可用的录音数据，请先录音。';
             return;
         }
@@ -163,8 +221,11 @@ function initVoiceprintPanel() {
         statusMessage.textContent = '正在验证声纹，请稍候...';
         verifyVoiceprint.disabled = true;
         
-        // 执行声纹验证
-        voiceprintAnalyzer.verifyVoiceprint(recordedAudio)
+        // 播放录制的音频（可选）
+        // recordedAudioData.play();
+        
+        // 模拟声纹验证过程
+        simulateVoiceprintVerification(recordedAudioData)
             .then(result => {
                 // 处理验证结果
                 handleVerificationResult(result);
@@ -175,6 +236,39 @@ function initVoiceprintPanel() {
                 verifyVoiceprint.disabled = false;
             });
     });
+    
+    // 模拟声纹验证过程
+    function simulateVoiceprintVerification(audioData) {
+        return new Promise((resolve) => {
+            // 显示加载动画
+            statusMessage.textContent = '正在分析声纹特征...';
+            
+            // 模拟验证延迟
+            setTimeout(() => {
+                statusMessage.textContent = '正在匹配声纹特征...';
+                
+                setTimeout(() => {
+                    statusMessage.textContent = '正在进行活体检测...';
+                    
+                    setTimeout(() => {
+                        // 返回验证结果
+                        resolve({
+                            success: true,
+                            livenessCheck: true,
+                            voiceprintMatch: true,
+                            recognizedText: "智能声纹，安全出行",
+                            confidence: 98,
+                            voiceprintQuality: {
+                                uniquenessScore: 0.85,
+                                stabilityScore: 0.92,
+                                clarity: 0.78
+                            }
+                        });
+                    }, 800);
+                }, 700);
+            }, 1000);
+        });
+    }
 }
 
 // 处理声纹验证结果
@@ -189,7 +283,7 @@ function handleVerificationResult(result) {
     verifyVoiceprint.disabled = false;
     
     if (result.success) {
-        // 验证成功
+        // 显示成功结果
         showResultMessage('success', '身份验证成功! 您的声纹已确认。');
         
         // 更新安全检查状态
@@ -197,7 +291,7 @@ function handleVerificationResult(result) {
         updateSecurityCheck(voiceprintMatch, result.voiceprintMatch);
         
         // 更新识别到的命令
-        if (result.recognizedText) {
+        if (recognizedCommand) {
             recognizedCommand.textContent = result.recognizedText;
             commandConfidence.textContent = `${result.confidence}%`;
         }
@@ -205,13 +299,15 @@ function handleVerificationResult(result) {
         // 显示声纹报告
         showVoiceprintReport(result.voiceprintQuality);
         
-        // 如果是解锁操作，更新车门状态
-        if (result.command && result.command.includes('打开车门')) {
+        // 如果在车门控制面板，更新车门状态
+        if (document.querySelector('.door-panel')) {
+            setTimeout(() => {
             updateDoorStatus('unlocked');
+            }, 500);
         }
     } else {
-        // 验证失败
-        showResultMessage('error', `身份验证失败: ${result.message || '声纹不匹配'}`);
+        // 显示失败结果
+        showResultMessage('error', '身份验证失败，声纹不匹配。');
         
         // 更新安全检查状态
         updateSecurityCheck(livenessCheck, result.livenessCheck);
@@ -240,68 +336,55 @@ function updateSecurityCheck(element, isPassed) {
 function showVoiceprintReport(quality) {
     if (!quality) return;
     
-    const { voiceprintReport } = window.elements;
+    const voiceprintReport = window.elements.voiceprintReport;
+    if (!voiceprintReport) return;
     
-    // 显示报告容器
-    voiceprintReport.style.display = 'block';
-    
-    // 更新质量指标值
+    // 更新质量指标
     const metrics = voiceprintReport.querySelectorAll('.metric-value');
-    const numbers = voiceprintReport.querySelectorAll('.metric-number');
+    const metricNumbers = voiceprintReport.querySelectorAll('.metric-number');
     
+    if (metrics.length >= 3 && metricNumbers.length >= 3) {
     // 唯一性
-    metrics[0].style.width = `${quality.uniqueness}%`;
-    numbers[0].textContent = `${quality.uniqueness}%`;
+        const uniquenessPercent = Math.round(quality.uniquenessScore * 100);
+        metrics[0].style.width = `${uniquenessPercent}%`;
+        metricNumbers[0].textContent = `${uniquenessPercent}%`;
     
     // 稳定性
-    metrics[1].style.width = `${quality.stability}%`;
-    numbers[1].textContent = `${quality.stability}%`;
+        const stabilityPercent = Math.round(quality.stabilityScore * 100);
+        metrics[1].style.width = `${stabilityPercent}%`;
+        metricNumbers[1].textContent = `${stabilityPercent}%`;
     
     // 清晰度
-    metrics[2].style.width = `${quality.clarity}%`;
-    numbers[2].textContent = `${quality.clarity}%`;
-    
-    // 更新建议
-    const recommendations = voiceprintReport.querySelector('.report-recommendations');
-    recommendations.innerHTML = '';
-    
-    if (quality.recommendations && quality.recommendations.length > 0) {
-        quality.recommendations.forEach(recommendation => {
-            const p = document.createElement('p');
-            p.textContent = recommendation;
-            recommendations.appendChild(p);
-        });
+        const clarityPercent = Math.round(quality.clarity * 100);
+        metrics[2].style.width = `${clarityPercent}%`;
+        metricNumbers[2].textContent = `${clarityPercent}%`;
     }
+    
+    // 显示报告
+    voiceprintReport.style.display = 'block';
 }
 
 // 显示结果消息
 function showResultMessage(type, message) {
-    const { resultMessage, statusMessage } = window.elements;
+    const resultMessage = window.elements.resultMessage;
+    if (!resultMessage) return;
     
-    // 更新消息类型和内容
-    resultMessage.className = `result-message ${type}`;
+    resultMessage.className = 'result-message ' + type;
     resultMessage.textContent = message;
     resultMessage.style.display = 'block';
-    
-    // 清除状态消息
-    statusMessage.textContent = '';
 }
 
-// 重置声纹验证UI状态
+// 重置声纹验证UI
 function resetVoiceprintUI() {
-    const { 
-        statusMessage, resultMessage, voiceprintReport,
-        livenessCheck, voiceprintMatch
-    } = window.elements;
+    const { resultMessage, voiceprintReport } = window.elements;
     
-    // 重置消息
-    statusMessage.textContent = '请点击"开始录音"按钮进行声纹验证。';
-    resultMessage.style.display = 'none';
-    voiceprintReport.style.display = 'none';
+    // 隐藏结果消息和报告
+    if (resultMessage) resultMessage.style.display = 'none';
+    if (voiceprintReport) voiceprintReport.style.display = 'none';
     
-    // 重置安全检查
-    resetSecurityCheck(livenessCheck);
-    resetSecurityCheck(voiceprintMatch);
+    // 重置安全检查状态
+    resetSecurityCheck(window.elements.livenessCheck);
+    resetSecurityCheck(window.elements.voiceprintMatch);
 }
 
 // 重置安全检查状态
@@ -309,23 +392,35 @@ function resetSecurityCheck(element) {
     if (!element) return;
     
     element.classList.remove('passed', 'failed');
-    element.querySelector('.check-icon i').className = 'bi bi-dash-circle-fill';
-    element.querySelector('.check-status').textContent = '待验证';
+    element.querySelector('.check-icon i').className = 'bi bi-dash-circle';
+    element.querySelector('.check-status').textContent = '等待验证';
 }
 
 // 初始化语音命令面板
 function initCommandPanel() {
     const { 
         startCommandRecording, stopCommandRecording, 
-        commandStatusMessage, commandResultMessage 
+        commandStatusMessage, commandVisualizer 
     } = window.elements;
     
-    // 声纹分析器实例
-    const voiceprintAnalyzer = new VoiceprintAnalyzer();
+    // 如果没有找到语音命令面板元素，直接返回
+    if (!startCommandRecording || !stopCommandRecording) return;
+    
+    // 录音实例
+    const commandRecorder = new AudioRecorder(commandVisualizer);
     
     // 录音状态
     let isRecording = false;
-    let recordedAudio = null;
+    let recordedAudioData = null;
+    
+    // 初始化录音设备
+    commandRecorder.init().then(() => {
+        console.log('命令录音设备初始化成功');
+    }).catch(error => {
+        console.error('命令录音设备初始化失败:', error);
+        commandStatusMessage.textContent = '无法访问麦克风，请检查浏览器权限设置。';
+        startCommandRecording.disabled = true;
+    });
     
     // 开始录音按钮点击事件
     startCommandRecording.addEventListener('click', function() {
@@ -333,21 +428,15 @@ function initCommandPanel() {
         resetCommandUI();
         
         // 开始录音
-        voiceprintAnalyzer.startRecording()
-            .then(() => {
+        if (commandRecorder.startRecording()) {
                 // 更新UI状态
                 isRecording = true;
                 startCommandRecording.disabled = true;
                 stopCommandRecording.disabled = false;
                 commandStatusMessage.textContent = '正在录音，请说出您的命令...';
-                
-                // 开始音频可视化
-                startVisualization(window.elements.commandVisualizer);
-            })
-            .catch(error => {
-                console.error('录音启动失败:', error);
-                commandStatusMessage.textContent = '无法启动录音: ' + error.message;
-            });
+        } else {
+            commandStatusMessage.textContent = '无法启动录音，请检查麦克风权限。';
+        }
     });
     
     // 停止录音按钮点击事件
@@ -355,22 +444,19 @@ function initCommandPanel() {
         if (!isRecording) return;
         
         // 停止录音
-        voiceprintAnalyzer.stopRecording()
-            .then(audio => {
+        commandRecorder.stopRecording()
+            .then(audioData => {
                 // 保存录制的音频
-                recordedAudio = audio;
+                recordedAudioData = audioData;
                 
                 // 更新UI状态
                 isRecording = false;
                 startCommandRecording.disabled = false;
                 stopCommandRecording.disabled = true;
-                commandStatusMessage.textContent = '正在处理您的命令，请稍候...';
-                
-                // 停止音频可视化
-                stopVisualization(window.elements.commandVisualizer);
+                commandStatusMessage.textContent = '正在处理您的语音命令...';
                 
                 // 处理语音命令
-                processVoiceCommand(audio);
+                processVoiceCommand(audioData);
             })
             .catch(error => {
                 console.error('停止录音失败:', error);
@@ -380,159 +466,186 @@ function initCommandPanel() {
 }
 
 // 处理语音命令
-function processVoiceCommand(audio) {
+function processVoiceCommand(audioData) {
     const { commandStatusMessage, commandResultMessage } = window.elements;
     
-    // 实例化声纹分析器
-    const voiceprintAnalyzer = new VoiceprintAnalyzer();
+    // 模拟命令处理延迟
+    setTimeout(() => {
+        // 模拟命令识别结果
+        const commands = [
+            '打开车门',
+            '锁定车门',
+            '打开后备箱',
+            '关闭车窗',
+            '打开车灯'
+        ];
     
-    // 分析语音命令
-    voiceprintAnalyzer.processCommand(audio)
-        .then(result => {
-            if (result.success) {
-                // 命令识别成功
-                commandStatusMessage.textContent = '';
-                showCommandResult('success', `命令已识别: "${result.command}"，正在执行...`);
-                
-                // 根据命令更新UI
-                executeCommand(result.command);
-            } else {
-                // 命令识别失败
-                commandStatusMessage.textContent = '';
-                showCommandResult('error', `命令无法识别: ${result.message || '请重试'}`);
-            }
-        })
-        .catch(error => {
-            console.error('处理语音命令失败:', error);
-            commandStatusMessage.textContent = '';
-            showCommandResult('error', '处理语音命令失败: ' + error.message);
-        });
+        // 随机选择一个命令
+        const recognizedCommand = commands[Math.floor(Math.random() * commands.length)];
+        
+        // 显示识别结果
+        showCommandResult('success', `已识别命令: "${recognizedCommand}"`);
+        commandStatusMessage.textContent = '命令已识别，正在执行...';
+        
+        // 执行命令
+        executeCommand(recognizedCommand);
+    }, 1500);
 }
 
 // 执行语音命令
 function executeCommand(command) {
-    if (!command) return;
+    const { commandStatusMessage } = window.elements;
     
-    // 模拟命令执行延迟
-    setTimeout(() => {
-        // 根据命令执行相应操作
-        if (command.includes('打开车门')) {
+    // 根据命令执行不同操作
+    switch (command.toLowerCase()) {
+        case '打开车门':
             // 切换到车门控制面板
             switchToTab('door-panel');
-            // 解锁车门
-            updateDoorStatus('unlocked');
-        } else if (command.includes('锁定车门')) {
+            // 模拟点击解锁按钮
+            setTimeout(() => {
+                simulateButtonAction(window.elements.unlockDoor);
+                commandStatusMessage.textContent = '已执行: 打开车门';
+            }, 500);
+            break;
+            
+        case '锁定车门':
             // 切换到车门控制面板
             switchToTab('door-panel');
-            // 锁定车门
-            updateDoorStatus('locked');
-        } else if (command.includes('打开后备箱')) {
+            // 模拟点击锁定按钮
+            setTimeout(() => {
+                simulateButtonAction(window.elements.lockDoor);
+                commandStatusMessage.textContent = '已执行: 锁定车门';
+            }, 500);
+            break;
+            
+        case '打开后备箱':
             // 切换到车门控制面板
             switchToTab('door-panel');
-            // 模拟后备箱操作
+            // 模拟点击后备箱按钮
+            setTimeout(() => {
             simulateButtonAction(window.elements.trunkBtn);
-        } else if (command.includes('打开车窗') || command.includes('关闭车窗')) {
-            // 切换到车门控制面板
-            switchToTab('door-panel');
-            // 模拟车窗操作
-            simulateButtonAction(window.elements.windowBtn);
-        }
-        
-        // 更新命令结果消息
-        showCommandResult('success', `命令 "${command}" 已执行成功!`);
-    }, 1500);
+                commandStatusMessage.textContent = '已执行: 打开后备箱';
+            }, 500);
+            break;
+            
+        default:
+            commandStatusMessage.textContent = `已识别命令: "${command}"，但当前不支持此操作。`;
+            break;
+    }
 }
 
 // 切换到指定选项卡
 function switchToTab(tabId) {
-    // 寻找对应的选项卡
-    window.tabs.forEach(tab => {
-        if (tab.dataset.target === tabId) {
-            tab.click();
-        }
-    });
+    const tab = document.querySelector(`.verify-tab[data-target="${tabId}"]`);
+    if (tab) tab.click();
 }
 
-// 模拟按钮点击效果
+// 模拟按钮点击
 function simulateButtonAction(button) {
     if (!button) return;
     
-    // 添加点击效果类
-    button.classList.add('btn-active');
+    // 添加活动状态类
+    button.classList.add('active');
     
-    // 移除效果
+    // 移除活动状态类
     setTimeout(() => {
-        button.classList.remove('btn-active');
+        button.classList.remove('active');
+        
+        // 如果有点击事件，触发它
+        if (button.click) {
+            button.click();
+        }
     }, 300);
 }
 
-// 显示命令结果消息
+// 显示命令结果
 function showCommandResult(type, message) {
-    const { commandResultMessage } = window.elements;
+    const commandResultMessage = window.elements.commandResultMessage;
+    if (!commandResultMessage) return;
     
-    // 更新消息类型和内容
-    commandResultMessage.className = `result-message ${type}`;
+    commandResultMessage.className = 'result-message ' + type;
     commandResultMessage.textContent = message;
     commandResultMessage.style.display = 'block';
-    
-    // 自动隐藏消息
-    if (type === 'success') {
-        setTimeout(() => {
-            commandResultMessage.style.display = 'none';
-        }, 5000);
-    }
 }
 
-// 重置语音命令UI状态
+// 重置命令UI
 function resetCommandUI() {
-    const { commandStatusMessage, commandResultMessage } = window.elements;
+    const { commandResultMessage } = window.elements;
     
-    // 重置消息
-    commandStatusMessage.textContent = '请点击"开始录音"按钮并说出您的命令。';
-    commandResultMessage.style.display = 'none';
+    // 隐藏结果消息
+    if (commandResultMessage) commandResultMessage.style.display = 'none';
 }
 
 // 初始化车门控制面板
 function initDoorPanel() {
-    const { 
-        vehicleSelect, unlockDoor, lockDoor, 
-        trunkBtn, windowBtn 
-    } = window.elements;
+    const { doorPanel, unlockDoor, lockDoor } = window.elements;
     
-    // 车辆选择事件
-    vehicleSelect.addEventListener('change', function() {
-        // 更新车辆相关UI
-        const selectedVehicle = this.value;
-        console.log('选择的车辆:', selectedVehicle);
+    // 如果没有找到车门控制面板元素，直接返回
+    if (!doorPanel || !unlockDoor || !lockDoor) return;
         
-        // 此处可以根据选择的车辆更新车辆图标等信息
-    });
+    // 初始化车门状态
+    updateDoorStatus('locked');
     
     // 解锁车门按钮点击事件
     unlockDoor.addEventListener('click', function() {
-        // 显示验证确认
-        if (confirm('需要进行声纹验证才能解锁车门。是否继续?')) {
-            // 切换到声纹验证面板
-            switchToTab('voiceprint-panel');
-            // 添加引导提示
-            window.elements.statusMessage.textContent = '请完成声纹验证以解锁车门。';
-        }
+        // 显示加载状态
+        this.classList.add('loading');
+        this.disabled = true;
+        
+        // 模拟解锁延迟
+        setTimeout(() => {
+            // 更新车门状态
+            updateDoorStatus('unlocked');
+            
+            // 移除加载状态
+            this.classList.remove('loading');
+            this.disabled = false;
+            
+            // 启动自动锁定倒计时
+            startAutoLockCountdown(30);
+        }, 1000);
     });
     
     // 锁定车门按钮点击事件
     lockDoor.addEventListener('click', function() {
+        // 显示加载状态
+        this.classList.add('loading');
+        this.disabled = true;
+        
+        // 模拟锁定延迟
+        setTimeout(() => {
         // 更新车门状态
         updateDoorStatus('locked');
+            
+            // 移除加载状态
+            this.classList.remove('loading');
+            this.disabled = false;
+            
+            // 清除自动锁定倒计时
+            clearAutoLockCountdown();
+        }, 1000);
     });
     
-    // 后备箱按钮点击事件
-    trunkBtn.addEventListener('click', function() {
-        alert('后备箱已打开!');
-    });
+    // 其他车门控制按钮
+    const otherButtons = [window.elements.trunkBtn, window.elements.windowBtn];
+    otherButtons.forEach(button => {
+        if (button) {
+            button.addEventListener('click', function() {
+                // 显示加载状态
+                this.classList.add('loading');
+                this.disabled = true;
     
-    // 车窗按钮点击事件
-    windowBtn.addEventListener('click', function() {
-        alert('车窗已打开!');
+                // 模拟操作延迟
+                setTimeout(() => {
+                    // 移除加载状态
+                    this.classList.remove('loading');
+                    this.disabled = false;
+                    
+                    // 显示操作成功消息
+                    alert('操作成功!');
+                }, 1000);
+            });
+        }
     });
 }
 
@@ -540,51 +653,61 @@ function initDoorPanel() {
 function updateDoorStatus(status) {
     const { doorStatus, unlockDoor, lockDoor, autoLockInfo } = window.elements;
     
-    if (status === 'unlocked') {
-        // 解锁状态
-        doorStatus.textContent = '已解锁';
-        doorStatus.classList.add('unlocked');
-        unlockDoor.style.display = 'none';
-        lockDoor.style.display = 'block';
-        autoLockInfo.style.display = 'block';
-        
-        // 设置自动锁定计时器
-        startAutoLockCountdown(30);
-    } else {
-        // 锁定状态
+    if (!doorStatus) return;
+    
+    if (status === 'locked') {
+        // 更新状态文本和样式
         doorStatus.textContent = '已锁定';
-        doorStatus.classList.remove('unlocked');
-        unlockDoor.style.display = 'block';
-        lockDoor.style.display = 'none';
-        autoLockInfo.style.display = 'none';
+        doorStatus.className = 'door-status locked';
         
-        // 清除自动锁定计时器
-        clearAutoLockCountdown();
+        // 更新按钮状态
+        if (unlockDoor) unlockDoor.disabled = false;
+        if (lockDoor) lockDoor.disabled = true;
+        
+        // 隐藏自动锁定信息
+        if (autoLockInfo) autoLockInfo.style.display = 'none';
+    } else if (status === 'unlocked') {
+        // 更新状态文本和样式
+        doorStatus.textContent = '已解锁';
+        doorStatus.className = 'door-status unlocked';
+        
+        // 更新按钮状态
+        if (unlockDoor) unlockDoor.disabled = true;
+        if (lockDoor) lockDoor.disabled = false;
+        
+        // 显示自动锁定信息
+        if (autoLockInfo) autoLockInfo.style.display = 'block';
     }
 }
 
 // 自动锁定倒计时
-let autoLockTimer;
+let autoLockCountdownTimer;
+
+// 启动自动锁定倒计时
 function startAutoLockCountdown(seconds) {
-    // 清除现有计时器
+    const { autoLockInfo, lockDoor } = window.elements;
+    
+    // 清除现有倒计时
     clearAutoLockCountdown();
     
-    // 获取自动锁定信息元素
-    const { autoLockInfo } = window.elements;
+    let remainingSeconds = seconds;
     
-    // 初始化倒计时
-    let countdown = seconds;
-    updateCountdownText(countdown);
+    // 更新倒计时文本
+    updateCountdownText(remainingSeconds);
     
-    // 设置新的计时器
-    autoLockTimer = setInterval(() => {
-        countdown--;
-        updateCountdownText(countdown);
+    // 启动倒计时
+    autoLockCountdownTimer = setInterval(() => {
+        remainingSeconds--;
         
-        // 倒计时结束
-        if (countdown <= 0) {
-            clearInterval(autoLockTimer);
-            updateDoorStatus('locked');
+        // 更新倒计时文本
+        updateCountdownText(remainingSeconds);
+        
+        // 检查倒计时是否结束
+        if (remainingSeconds <= 0) {
+            clearInterval(autoLockCountdownTimer);
+            
+            // 自动锁定车门
+            if (lockDoor) lockDoor.click();
         }
     }, 1000);
 }
@@ -592,168 +715,67 @@ function startAutoLockCountdown(seconds) {
 // 更新倒计时文本
 function updateCountdownText(seconds) {
     const { autoLockInfo } = window.elements;
-    autoLockInfo.textContent = `${seconds}秒后自动锁定`;
+    
+    if (autoLockInfo) {
+        autoLockInfo.textContent = `车门将在 ${seconds} 秒后自动锁定`;
+    }
 }
 
-// 清除自动锁定计时器
+// 清除自动锁定倒计时
 function clearAutoLockCountdown() {
-    if (autoLockTimer) {
-        clearInterval(autoLockTimer);
-        autoLockTimer = null;
+    if (autoLockCountdownTimer) {
+        clearInterval(autoLockCountdownTimer);
+        autoLockCountdownTimer = null;
     }
 }
 
 // 初始化侧边栏折叠功能
 function initSidebar() {
     const menuToggle = document.getElementById('menuToggle');
-    const sidebar = document.querySelector('.sidebar');
-    const mainContent = document.querySelector('.main-content');
+    const appContainer = document.querySelector('.app-container');
     
-    if (menuToggle) {
+    if (menuToggle && appContainer) {
         menuToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
+            appContainer.classList.toggle('sidebar-collapsed');
         });
     }
 }
 
-// 初始化音频可视化
-function initAudioVisualizer() {
-    // 创建音频可视化器
-    window.visualizers = {};
+// 初始化波形显示
+function initWaveform() {
+    const audioWaveform = window.elements.audioWaveform;
     
-    // 初始化可视化器
-    if (window.elements.visualizer) {
-        window.visualizers.main = createVisualizer(window.elements.visualizer);
-    }
+    if (!audioWaveform) return;
     
-    if (window.elements.commandVisualizer) {
-        window.visualizers.command = createVisualizer(window.elements.commandVisualizer);
+    // 创建波形条
+    for (let i = 0; i < 60; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'waveform-bar';
+        audioWaveform.appendChild(bar);
     }
 }
 
-// 创建可视化器
-function createVisualizer(canvas) {
-    if (!canvas) return null;
+// 激活波形动画
+function activateWaveform() {
+    const waveformBars = document.querySelectorAll('.waveform-bar');
     
-    const ctx = canvas.getContext('2d');
-    
-    // 设置画布大小
-    function resizeCanvas() {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-    }
-    
-    // 初始调整大小
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    
-    // 返回可视化器对象
-    return {
-        canvas,
-        ctx,
-        isActive: false,
-        animationId: null
-    };
+    waveformBars.forEach((bar, index) => {
+        // 使用不同的动画延迟创建波浪效果
+        const delay = index % 5 * 0.1;
+        bar.style.animation = `waveform-animation 0.5s infinite ${delay}s`;
+        
+        // 随机高度
+        const randomHeight = 5 + Math.random() * 25;
+        bar.style.height = `${randomHeight}px`;
+    });
 }
 
-// 开始可视化
-function startVisualization(canvas) {
-    if (!canvas) return;
+// 停用波形动画
+function deactivateWaveform() {
+    const waveformBars = document.querySelectorAll('.waveform-bar');
     
-    // 获取可视化器
-    let visualizer;
-    if (canvas === window.elements.visualizer) {
-        visualizer = window.visualizers.main;
-    } else if (canvas === window.elements.commandVisualizer) {
-        visualizer = window.visualizers.command;
-    }
-    
-    if (!visualizer) return;
-    
-    // 标记为活动状态
-    visualizer.isActive = true;
-    
-    // 绘制函数
-    function draw() {
-        if (!visualizer.isActive) return;
-        
-        const { ctx, canvas } = visualizer;
-        const width = canvas.width;
-        const height = canvas.height;
-        
-        // 清除画布
-        ctx.clearRect(0, 0, width, height);
-        
-        // 绘制背景
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(0, 0, width, height);
-        
-        // 模拟音频波形
-        ctx.beginPath();
-        ctx.moveTo(0, height / 2);
-        
-        // 绘制波形
-        const barCount = 100;
-        const barWidth = width / barCount;
-        
-        for (let i = 0; i < barCount; i++) {
-            // 生成随机波形高度
-            const amplitude = Math.random() * 50 + 10;
-            const y = (height / 2) + Math.sin(i * 0.1 + Date.now() * 0.005) * amplitude;
-            
-            ctx.lineTo(i * barWidth, y);
-        }
-        
-        ctx.lineTo(width, height / 2);
-        ctx.strokeStyle = '#1abc9c';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        
-        // 循环动画
-        visualizer.animationId = requestAnimationFrame(draw);
-    }
-    
-    // 开始动画
-    draw();
-}
-
-// 停止可视化
-function stopVisualization(canvas) {
-    if (!canvas) return;
-    
-    // 获取可视化器
-    let visualizer;
-    if (canvas === window.elements.visualizer) {
-        visualizer = window.visualizers.main;
-    } else if (canvas === window.elements.commandVisualizer) {
-        visualizer = window.visualizers.command;
-    }
-    
-    if (!visualizer) return;
-    
-    // 标记为非活动状态
-    visualizer.isActive = false;
-    
-    // 取消动画帧
-    if (visualizer.animationId) {
-        cancelAnimationFrame(visualizer.animationId);
-        visualizer.animationId = null;
-    }
-    
-    // 最终绘制静止波形
-    const { ctx, canvas: cnv } = visualizer;
-    ctx.clearRect(0, 0, cnv.width, cnv.height);
-    
-    // 绘制背景
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-    ctx.fillRect(0, 0, cnv.width, cnv.height);
-    
-    // 绘制水平线
-    ctx.beginPath();
-    ctx.moveTo(0, cnv.height / 2);
-    ctx.lineTo(cnv.width, cnv.height / 2);
-    ctx.strokeStyle = '#95a5a6';
-    ctx.lineWidth = 2;
-    ctx.stroke();
+    waveformBars.forEach(bar => {
+        bar.style.animation = 'none';
+        bar.style.height = '5px';
+    });
 } 

@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>声纹验证 - 智能车门解锁系统</title>
+    <title>声纹验证 - 智能声纹识别系统</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/verify.css">
+    <link rel="stylesheet" href="css/clean-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app-container">
@@ -15,7 +17,7 @@
             <div class="sidebar-header">
                 <div class="logo">
                     <i class="bi bi-soundwave"></i>
-                    <span>声纹通</span>
+                    <span>声纹通<span class="premium-badge">PRO</span></span>
                 </div>
                 <button id="menuToggle" class="menu-toggle">
                     <i class="bi bi-list"></i>
@@ -81,22 +83,50 @@
                             </div>
                         </div>
 
-                        <!-- 音频可视化 -->
-                        <div class="audio-visualizer">
-                            <canvas id="visualizer"></canvas>
-                        </div>
-
-                        <!-- 控制面板 -->
-                        <div class="control-panel">
-                            <button id="startRecording" class="control-btn primary">
-                                <i class="bi bi-mic-fill btn-icon"></i> 开始录音
-                            </button>
-                            <button id="stopRecording" class="control-btn danger" disabled>
-                                <i class="bi bi-stop-fill btn-icon"></i> 停止录音
-                            </button>
-                            <button id="verifyVoiceprint" class="control-btn success" disabled>
-                                <i class="bi bi-shield-check btn-icon"></i> 验证身份
-                            </button>
+                        <!-- 录音控制区域 -->
+                        <div class="recording-controls">
+                            <div class="pro-recording-interface">
+                                <div class="recording-status">
+                                    <div class="recording-timer" id="recording-timer">00:00</div>
+                                    <div class="recording-indicator" id="recording-indicator">
+                                        <span class="recording-dot"></span>
+                                        <span class="recording-text">准备就绪</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="audio-level-indicator">
+                                    <div class="audio-level-bar" id="audio-level-bar"></div>
+                                </div>
+                                
+                                <div class="audio-waveform" id="audio-waveform"></div>
+                                
+                                <div class="recording-visualizer">
+                                    <canvas id="visualizer" width="640" height="100"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="control-buttons">
+                                <button id="startRecording" class="control-btn primary">
+                                    <div class="btn-icon">
+                                        <i class="bi bi-mic-fill"></i>
+                                    </div>
+                                    <span>开始录音</span>
+                                </button>
+                                
+                                <button id="stopRecording" class="control-btn danger" disabled>
+                                    <div class="btn-icon">
+                                        <i class="bi bi-stop-fill"></i>
+                                    </div>
+                                    <span>停止录音</span>
+                                </button>
+                                
+                                <button id="verifyVoiceprint" class="control-btn success" disabled>
+                                    <div class="btn-icon">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                    <span>验证身份</span>
+                                </button>
+                            </div>
                         </div>
 
                         <!-- 状态消息 -->
@@ -281,65 +311,191 @@
                     <div id="door-panel" class="verify-panel">
                         <div class="panel-header">
                             <h3>车门控制</h3>
-                            <p>查看您的车辆状态并控制车门锁定/解锁。</p>
+                            <p>通过声纹验证后，您可以远程控制车辆门锁和其他功能。</p>
                         </div>
-
-                        <!-- 车辆选择器 -->
+                        
+                        <!-- 车辆选择 -->
                         <div class="vehicle-selector">
-                            <label for="vehicle-select">选择车辆:</label>
-                            <select id="vehicle-select">
-                                <option value="car1">奔驰 S级 - 京A12345</option>
-                                <option value="car2">宝马 5系 - 京B67890</option>
-                                <option value="car3">特斯拉 Model 3 - 京C54321</option>
+                            <label for="vehicle-select">选择车辆</label>
+                            <select id="vehicle-select" class="form-control">
+                                <option value="lincoln">林肯领航员 (默认车辆)</option>
+                                <option value="bmw">宝马 X5</option>
+                                <option value="audi">奥迪 A6L</option>
                             </select>
                         </div>
-
-                        <!-- 车辆显示 -->
+                        
+                        <!-- 车辆状态显示 -->
                         <div class="vehicle-display">
                             <div class="vehicle-image">
                                 <i class="bi bi-car-front car-icon"></i>
                             </div>
                             <div class="door-status-display">
-                                <div class="status-label">当前车门状态</div>
-                                <div class="door-status" id="door-status">已锁定</div>
-                                <div class="auto-lock-info" id="auto-lock-info" style="display: none;">
-                                    30秒后自动锁定
+                                <div class="status-label">车门状态</div>
+                                <div id="door-status" class="door-status">已锁定</div>
+                                <div id="auto-lock-info" class="auto-lock-info" style="display: none;">
+                                    车门将在 30 秒后自动锁定
                                 </div>
                             </div>
                         </div>
-
+                        
                         <!-- 控制按钮 -->
-                        <div class="control-buttons">
-                            <button class="control-btn success door-btn" id="unlock-door">
-                                <i class="bi bi-unlock btn-icon"></i> 解锁车门
+                        <div class="door-controls">
+                            <button id="unlock-door" class="door-control-btn">
+                                <div class="door-control-icon">
+                                    <i class="bi bi-unlock"></i>
+                                </div>
+                                <span class="door-control-label">解锁车门</span>
                             </button>
-                            <button class="control-btn primary" id="trunk-btn">
-                                <i class="bi bi-box btn-icon"></i> 打开后备箱
+                            
+                            <button id="lock-door" class="door-control-btn" disabled>
+                                <div class="door-control-icon">
+                                    <i class="bi bi-lock"></i>
+                                </div>
+                                <span class="door-control-label">锁定车门</span>
                             </button>
-                            <button class="control-btn secondary" id="window-btn">
-                                <i class="bi bi-window btn-icon"></i> 打开车窗
+                            
+                            <button id="trunk-btn" class="door-control-btn">
+                                <div class="door-control-icon">
+                                    <i class="bi bi-box"></i>
+                                </div>
+                                <span class="door-control-label">开启后备箱</span>
                             </button>
-                            <button class="control-btn danger" id="lock-door" style="display: none;">
-                                <i class="bi bi-lock btn-icon"></i> 锁定车门
+                            
+                            <button id="window-btn" class="door-control-btn">
+                                <div class="door-control-icon">
+                                    <i class="bi bi-window"></i>
+                                </div>
+                                <span class="door-control-label">控制车窗</span>
                             </button>
                         </div>
-
-                        <!-- 信息提示框 -->
-                        <div class="info-box">
+                        
+                        <!-- 安全提示 -->
+                        <div class="info-box warning">
                             <div class="info-icon">
-                                <i class="bi bi-info-circle"></i>
+                                <i class="bi bi-exclamation-triangle"></i>
                             </div>
-                            <p>控制车门前需要先通过声纹验证确认您的身份。验证通过后，车门将保持解锁状态30秒，之后自动锁定以确保安全。</p>
+                            <p>远程控制车门需要先通过声纹验证。为了您的车辆安全，每次操作都会记录您的身份信息和操作时间。</p>
+                        </div>
+                        
+                        <!-- 操作记录 -->
+                        <div class="operation-history">
+                            <h4>最近操作记录</h4>
+                            <div class="history-list">
+                                <div class="history-item">
+                                    <div class="history-time">今天 09:15</div>
+                                    <div class="history-action">车门解锁</div>
+                                    <div class="history-user">李明 (您)</div>
+                                </div>
+                                <div class="history-item">
+                                    <div class="history-time">今天 08:30</div>
+                                    <div class="history-action">车门锁定</div>
+                                    <div class="history-user">李明 (您)</div>
+                                </div>
+                                <div class="history-item">
+                                    <div class="history-time">昨天 18:45</div>
+                                    <div class="history-action">后备箱开启</div>
+                                    <div class="history-user">李明 (您)</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+        
+        <!-- 展示模式标识 -->
+        <div class="demo-mode-badge">
+            <i class="bi bi-shield-lock"></i> 企业安全演示
+        </div>
     </div>
 
+    <script src="js/audio-recorder.js"></script>
     <script src="js/voiceprint.js"></script>
-    <script src="js/deepseek-api.js"></script>
-    <script src="js/app.js"></script>
     <script src="js/verify.js"></script>
+    <script>
+        // 添加录音计时器功能
+        let recordingInterval;
+        let recordingSeconds = 0;
+        
+        function startRecordingTimer() {
+            const timerElement = document.getElementById('recording-timer');
+            const indicatorText = document.querySelector('.recording-text');
+            
+            recordingSeconds = 0;
+            indicatorText.textContent = "正在录音";
+            document.querySelector('.recording-dot').classList.add('active');
+            
+            recordingInterval = setInterval(() => {
+                recordingSeconds++;
+                const minutes = Math.floor(recordingSeconds / 60).toString().padStart(2, '0');
+                const seconds = (recordingSeconds % 60).toString().padStart(2, '0');
+                timerElement.textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+        
+        function stopRecordingTimer() {
+            clearInterval(recordingInterval);
+            document.querySelector('.recording-dot').classList.remove('active');
+            document.querySelector('.recording-text').textContent = "录音完成";
+        }
+        
+        // 重写开始录音和停止录音的事件处理
+        document.getElementById('startRecording').addEventListener('click', function() {
+            startRecordingTimer();
+            
+            // 模拟音频电平
+            simulateAudioLevels();
+        });
+        
+        document.getElementById('stopRecording').addEventListener('click', function() {
+            stopRecordingTimer();
+            
+            // 停止音频电平模拟
+            stopAudioLevelSimulation();
+        });
+        
+        // 模拟音频电平显示
+        let audioLevelInterval;
+        
+        function simulateAudioLevels() {
+            const levelBar = document.getElementById('audio-level-bar');
+            
+            audioLevelInterval = setInterval(() => {
+                // 随机生成音频电平值 (20-90%)
+                const level = 20 + Math.random() * 70;
+                levelBar.style.width = `${level}%`;
+                
+                // 根据电平值设置颜色
+                if (level < 30) {
+                    levelBar.style.backgroundColor = '#52c41a';
+                } else if (level < 70) {
+                    levelBar.style.backgroundColor = '#1890ff';
+                } else {
+                    levelBar.style.backgroundColor = level > 85 ? '#cf1322' : '#faad14';
+                }
+            }, 100);
+        }
+        
+        function stopAudioLevelSimulation() {
+            clearInterval(audioLevelInterval);
+            document.getElementById('audio-level-bar').style.width = '0%';
+        }
+        
+        // 生成波形显示
+        function generateWaveform() {
+            const waveformContainer = document.getElementById('audio-waveform');
+            waveformContainer.innerHTML = '';
+            
+            // 创建60个波形条
+            for (let i = 0; i < 60; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'waveform-bar';
+                waveformContainer.appendChild(bar);
+            }
+        }
+        
+        // 页面加载时生成波形
+        window.addEventListener('DOMContentLoaded', generateWaveform);
+    </script>
 </body>
 </html> 
